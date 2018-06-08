@@ -1,0 +1,35 @@
+<ion-content class="orange">
+    <div *ngIf = "readyend;else ready">
+    <ion-grid class="nopadding fixheight"> 
+    <ion-grid class="gray"> 
+    <ion-row>
+ 
+    <ion-col col-2>
+        <img class="returnend" (click)="openmap()" src="assets/imgs/map.png">
+    </ion-col>
+    <ion-col col-8>
+        <div class="stateCh">STAGE {{state}} CLEAR!</div>
+    </ion-col>
+    <ion-col col-2>
+        <ion-icon class="menuicon" ios="ios-menu" md="md-menu" (click)="openmenu()"></ion-icon>
+    </ion-col>
+  
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <img class="piclight" src="assets/imgs/light.PNG" >
+    <p class="textconend"> {{textclear}}</p>
+    <div class="border"></div>
+    <p class="textscoreend">{{totalscore}} / 60</p>
+    <ion-icon name="mail" class="mail" (click)="getitem()"></ion-icon>
+    <p class="foot">You get item</p>
+
+  </ion-grid>
+
+    </ion-grid>
+    </div>
+<ng-template #ready>
+    <img class="readyload" src="assets/imgs/loading/lg.palette-rotating-ring-loader.gif">
+</ng-template>
+</ion-content>

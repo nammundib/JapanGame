@@ -1,0 +1,58 @@
+<ion-content>
+  <div *ngIf = "readypro;else ready">
+    <ion-row class="gray">
+      <ion-col>
+        <img class="returnlesson" (click) = "openMenu()" src="assets/imgs/return.PNG">
+      </ion-col>
+    </ion-row>
+    <ion-grid class="violet">
+      <h1 class="profile">PROFILE</h1>
+      <div class="datafile" *ngIf = "type;else quest">Firstname&emsp;&nbsp;&nbsp;: {{firstname}}  <br/>
+      Lastname&emsp;&nbsp;&nbsp;: {{lastname}}    <br/>
+      studentID&emsp;&nbsp;&nbsp;&nbsp;: {{id}}   <br/>
+      Stage clear&emsp;: {{statetext}}<br/>
+      Total Score&emsp;: {{totalscore}}</div>
+      <ng-template #quest>
+         <div class="datafile">Name&emsp;&nbsp;&emsp;&emsp;: {{name}}  <br/>
+      Stage clear&emsp;&nbsp;: {{statetext}}<br/>
+      Total Score&emsp;: {{totalscore}}</div>
+      </ng-template>
+      <button ion-button class="profileB" (click) = "logout()">logout</button> 
+    </ion-grid>
+
+    <div class="textscorepro">SCORE</div>
+    <img class="propic" src="assets/imgs/question/violetques.png">
+
+    <ion-grid class="violet betweentable tablescore">
+      <ion-row>
+        <ion-col col-4>
+          Stage
+        </ion-col>
+        <ion-col col-4>
+          Score (20)
+        </ion-col>
+        <ion-col col-4>
+          PLAY
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="tablescore">
+      <!-- <ion-row *ngFor="let score of score"> -->
+      <ion-row *ngFor = "let score of scoreTable">
+        <ion-col col-4>
+          {{score.stage}}-{{score.substage}}
+        </ion-col>
+        <ion-col col-4>
+          {{score.score}}
+        </ion-col>
+        <ion-col col-4>
+          <ion-icon class="iconplay" ios="ios-arrow-dropright" md="md-arrow-dropright" (click) = "openMap(score.stage,score.substage)"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ng-template #ready>
+    <img class="readyload" src="assets/imgs/loading/lg.palette-rotating-ring-loader.gif">
+</ng-template>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-content class="orange">
+    <ion-grid class="nopadding fixheight"> 
+    <ion-grid class="gray"> 
+    <ion-row>
+ 
+    <ion-col col-2>
+        <img class="returnend" (click)="openmap()" src="assets/imgs/map.png">
+    </ion-col>
+    <ion-col col-8>
+        <div class="stateCh">STAGE {{state}} ({{state}}-1-->{{state}}-3)</div>
+    </ion-col>
+    <ion-col col-2>
+         <ion-icon class="menuicon" ios="ios-menu" md="md-menu"></ion-icon>
+    </ion-col>
+  
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <div class="textconS">Stage {{state}}-{{substate-1}} CLEAR!</div>
+    <p class="textcon"> {{textwin}}</p>
+    <div class="border"></div>
+    <p class="textscore">{{score}} / 20</p> 
+    <ion-icon ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle" class="next" (click)="dismiss()"></ion-icon>
+    <p class="foot">{{foot}}</p>
+
+  </ion-grid>
+    </ion-grid>
+
+</ion-content>

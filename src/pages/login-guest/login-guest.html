@@ -1,0 +1,33 @@
+<ion-content class="blue">
+  <img class="loginlogoguest" src="assets/imgs/student.png">
+  
+  <!-- <ion-row class="inputquest">  -->
+     <!-- <ion-col col-3> -->
+      <!-- <ion-label class="textname">Name</ion-label> -->
+  <form novalidate class="formtext" [formGroup]="name" (ngSubmit)="openMenu()">
+    <ion-item class="quest">
+      <ion-label class="textname" fixed>name </ion-label>
+       <ion-input class="textquest" type="text" formControlName="title"></ion-input> 
+    </ion-item>
+
+    <ion-item class="error" *ngIf="(name.get('title').hasError('required')||name.get('title').hasError('pattern')) && name.get('title').touched">
+      <div *ngIf="name.get('title').hasError('required') && name.get('title').touched">
+        Please input your name.
+      </div>
+      <div *ngIf="name.get('title').hasError('pattern') && name.get('title').touched">
+        Please input character(a-z) at least 1 character.
+      </div>
+    </ion-item>
+    <div class="betweenB"></div>
+    <button ion-button class="loginB" [disabled]="name.invalid">OK</button> 
+  </form>
+
+    <!-- </ion-col>  
+     <ion-col col-9>
+      <ion-input class="textquest" type="text"></ion-input>
+    </ion-col>
+  </ion-row>      -->
+   
+  <!-- <button ion-button class="loginB" (click) = "openMenu()">OK</button>  -->
+ 
+</ion-content>

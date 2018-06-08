@@ -1,0 +1,291 @@
+.head1 {
+    font-size: 9.5vh;
+    float:right;
+    margin-top: 1vh;
+}
+
+.head11 {
+    font-size: 9.5vh;
+}
+
+.head2 {
+    font-size: 3.5vh;
+}
+
+.head12 {
+    margin-top: 1vh;
+    margin-left: 0.5vh;
+    font-size: 3.2vh;
+    color: red;
+}
+
+.head22 {
+    margin-top: 1vh;
+    font-size: 3.2vh;
+}
+
+.gray {
+    background: #666666;
+    color: white;
+}
+
+.pink {
+    background: #E995B1;
+}
+
+.orange {
+    background: #F5B17E;
+}
+
+.yellow {
+    background: #EBCD62;
+}
+
+.green {
+    background: #C3DB76;
+}
+
+.darkgreen {
+    background: #98D1A9;
+}
+
+.blue {
+    background: #93C3D9;
+}
+
+.darkblue {
+    background: #A1A9DD;
+}
+
+.violet {
+    background: #D0AAD3;
+}
+
+.nopadding {
+    padding: 0px !important;
+}
+
+.managecolor {
+    padding-bottom: 9.9vh;
+    width: 50%;
+    float: right;
+    clear: right;
+}
+
+.managecolorstage {
+    padding-bottom: 9.9vh !important;
+    width: 100% !important;
+    float: right;
+    border-top-left-radius: 40%;
+    border-bottom-left-radius: 40%;
+    -moz-border-top-left-radius: 15px; 
+    -webkit-border-bottom-left-radius: 15px; 
+    -moz-border-bottom-left-radius: 15px; 
+    -webkit-border-top-left-radius: 15px; 
+}
+
+.firstques {
+    margin-top: 3vh;
+}
+
+.quespic {
+    position:absolute;
+    z-index:100;
+    height: 15vh;
+    width: 100%;
+}
+
+.questionQ {
+    margin-top: 1vh;
+    margin-left: 1vh;
+    position: absolute;
+    font-size: 2.7vh;
+    color: white;
+    z-index:100;
+}
+
+.question {
+    margin-top: 5vh;
+    margin-left: 6vh;
+    position: absolute;
+    font-size: 4.5vh;
+    color: white;
+    z-index:100;
+    display:inline
+}
+
+.choice {
+    margin-top: 1.2vh;
+    font-size: 2.8vh;
+}
+
+.chiocepic {
+    width: 8vh;
+}
+
+.choicecorrect {
+    margin-top: 1.2vh;
+    font-size: 3vh;
+    color: #C3DB76;
+    font-weight:bold;
+}
+
+.choiceincorrect {
+    margin-top: 1.2vh;
+    font-size: 3vh;
+    color: #A1A9DD;
+    font-weight:bold;
+}
+
+.choicecut {
+    margin-top: 1.2vh;
+    font-size: 3vh;
+    color: #cccccc;  
+}
+
+.between {
+    margin: 2vh;
+}
+
+.circle1 {
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+}
+
+.firstch {
+    padding-top: 16vh;
+}
+
+.firstitem {
+    margin-top: 3vh;
+}
+
+.itemI {
+    display: block; 
+    margin: auto; 
+    width: 9vh;
+}
+
+.numitemcut{
+    position: absolute;
+    margin-left: 55%; 
+    padding-top: 0.5vh;
+    width: 4vh; 
+    height: 4vh;
+    background: #EBCD62; 
+    -moz-border-radius: 80%; 
+    -webkit-border-radius: 80%; 
+    border-radius: 80%;
+    font-size: 2.5vh;
+    z-index:100;
+    color: #666666;
+    text-align: center;
+}
+
+.centercard {
+    margin-top: 40%;
+}
+
+.buttonpopup {
+    display: block;
+    margin: auto auto;
+    font-size: 3vh;
+    width: 40%;
+    padding: 3vh;
+    color: #666666;
+    background-color: white;
+    text-align: center;
+    border-radius: 10%;
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px; 
+}
+
+.buttonpopup:hover {
+    display: block;
+    margin: auto auto;
+    font-size: 6vw;
+    width: 40%;
+    height: 7%;
+    color: white;
+    background-color: #666666;
+    text-align: center;
+    border-radius: 10%;
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px; 
+}
+
+.toasttime {
+    background-color: #666666;
+    .toast-message {
+        font-size: 10vh;
+        text-align: center;
+  }
+}
+
+.loadtop {
+    height: 9vh;
+    background-color: #e4f0f0;
+}
+
+.loadbub {
+    width: 100%;
+    height: 50vh;
+    display: block;
+    margin: auto;
+}
+
+.textload {
+    font-size: 5vh;
+    text-align: center;
+    color: #666666;   
+    font-weight:bold;
+}
+
+.loading-wrapper {
+    height: 100%;
+    width: 100%;
+    padding: 0 !important;
+    max-height: 100% !important;
+    max-width: 100% !important;
+    justify-content: center;
+}
+
+.itemtoast {
+    .toast-message {
+        font-size: 4vh;
+        text-align: center;
+  }
+}
+
+
+// ion-spinner * {
+//     font-size: 10vh;
+//   width: 100% !important;
+//   height: 100px !important;
+//   stroke: #444;
+//   fill: #222;
+// }
+
+// ion-toast.bottomToast.toast-md {
+//     .toast-wrapper.toast-bottom  {
+//         position: absolute;
+//         right: 0;
+//         left: 0;
+//         z-index: 10;
+//         display: block;
+//         margin: auto;
+//         width: 40%;
+//         max-width: 100vh;
+//         border-radius: 35px;
+//         background: gray;
+//         /* color: black; */
+//     }
+
+//     .toast-md .toast-message {
+//     padding: 19px 16px 17px;
+//     font-size: 100px;
+//     /* color: #fff; */
+//     text-align: center;
+// }
+// }

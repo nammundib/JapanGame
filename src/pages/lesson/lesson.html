@@ -1,0 +1,29 @@
+<ion-content>
+  <ion-grid class="nopadding fixheight"> 
+    <ion-row class="gray borderbottom">
+      <ion-col>
+        <img class="returnlesson" (click) = "openMenu()" src="assets/imgs/return.PNG">
+      </ion-col>
+    </ion-row>
+    <ion-row class="orange lessonmenu borderbottom">
+      <ion-col>
+        <div class="lesson" (click) = "openLessonsub(1)">LESSON 1</div>
+      </ion-col>
+    </ion-row>
+     <ion-row class="yellow lessonmenu borderbottom">
+       <ion-col>
+        <div class="lesson" (click) = "openLessonsub(2)">LESSON 2</div>
+       </ion-col>
+    </ion-row>
+    <ion-row class="blue lessonmenu borderbottom">
+      <ion-col>
+        <div class="lesson" (click) = "openLessonsub(3)">LESSON 3</div>
+      </ion-col>
+    </ion-row>
+     <ion-row class="violet lessonmenu">
+       <ion-col>
+        <div class="lesson" (click) = "openLessonsub(4)">LESSON 4</div>
+       </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

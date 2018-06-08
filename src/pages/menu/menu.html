@@ -1,0 +1,48 @@
+<ion-content>
+  <ion-grid class="nopadding fixheight" *ngIf = "readymenu;else ready"> 
+    <ion-row class="gray borderbottom">
+      <ion-col col-9 *ngIf = "typemenu;else quest">
+        <div class="namemenu">NAME : {{fullname}}</div>
+        <div class="namemenu">STAGE : {{statetext}}</div>
+      </ion-col>
+      <ng-template #quest>
+        <ion-col col-9>
+        <div class="namemenu">NAME : {{name}}</div>
+        <div class="namemenu">STAGE : {{statetext}}</div>
+      </ion-col>
+      </ng-template>
+      <ion-col col-3>
+      <img class="iconperson"src="assets/imgs/profilestudent.png" (click) = "openprofile()" >
+      </ion-col>
+    <div class="head11"></div>
+    </ion-row>
+    <ion-row class="borderbottom">
+      <ion-col col-9 class="blue borderright">
+        <div class="textmenu" (click) = "openMap()">PLAY GAME</div>
+      </ion-col>
+       <ion-col col-3  class="yellow"></ion-col>
+    </ion-row>
+     <ion-row class="borderbottom">
+       <ion-col col-3 class="green borderright"></ion-col>
+      <ion-col col-9 class="pink">
+        <div class="textmenu" (click) = "openLesson()">LESSON</div>
+      </ion-col>
+    </ion-row> 
+    <ion-row class="borderbottom ">
+      <ion-col col-9 class="violet borderright">
+        <div class="textmenu" (click) = "openCre()">CREDIT</div>
+      </ion-col>
+       <ion-col col-3  class="yellow"></ion-col>
+    </ion-row>
+     <ion-row class="borderbottom">
+       <ion-col col-3  class="green borderright"></ion-col>
+      <ion-col col-9 class="orange">
+        <div class="textmenu" (click) = "exitApp()">EXIT</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<ng-template #ready>
+    <img class="readyload" src="assets/imgs/loading/lg.palette-rotating-ring-loader.gif">
+</ng-template>
+</ion-content>

@@ -1,0 +1,41 @@
+.loginlogoguest {
+    display: block; 
+    margin: auto; 
+    width: 50vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;  
+}
+
+.inputquest {
+    margin: 5% 5% 10% 5%;
+}
+
+.quest {
+    display: block; 
+    margin: auto; 
+    width: 90%;
+    background-color: #93C3D9 !important;
+}
+
+.textname {
+    font-size: 3.3vh;
+    color: white !important;
+    font-weight:bold;
+}
+
+.textquest{
+    font-size: 3vh;
+    padding: 0.3vh;
+    background-color: white !important;
+    border-radius: 10%;
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px; 
+}
+
+.error{
+    color: red;
+    font-size: 2.5vh;
+    text-align: center;
+    background-color: #93C3D9 !important;
+}
+

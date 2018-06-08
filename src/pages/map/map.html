@@ -1,0 +1,68 @@
+<ion-content>
+  <ion-grid class="nopadding fixheight" *ngIf = "readymap;else ready"> 
+    <ion-grid class="gray"> 
+    <ion-row>
+ 
+    <ion-col col-10>
+        <img class="return" (click) = "openMenu()" src="assets/imgs/return.PNG">
+    </ion-col>
+  
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-row>
+    <ion-col col-9>
+      <div class="stagemap">stage map</div>
+      <div class="textstate textstate1">stage 1 : KYUSHU</div>
+      <div class="textstate textstate2">stage 2 : SHIKOKU</div>
+      <div class="textstate textstate3">stage 3 : CHUGOKU</div>
+      <div class="textstate textstate4">stage 4 : KANSAI</div>
+      <div class="textstate textstate5">stage 5 : HOKURIKU</div>
+      <div class="textstate textstate6">stage 6 : KANTO</div>
+      <div class="textstate textstate7">stage 7 : TOHOKU</div>
+      <div class="textstate textstate8">stage 8 : HOKKAIDO</div>
+    </ion-col>
+    <ion-col col-3>
+      <img class="statehok" (click) = "openQues(7)" src="{{stagepic[0]}}">       
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="nopadding">
+    <ion-col col-3 class="nopadding">
+      <img class="state1" (click) = "openQues(0)" src="{{stagepic[1]}}">
+    </ion-col>
+    <ion-col col-2 class="nopadding">
+      <ion-row class="nopadding">
+        <ion-col col-12 class="nopadding">
+          <img class="state2" (click) = "openQues(2)" src="{{stagepic[3]}}">   
+        </ion-col>     
+        <ion-col col-12 class="nopadding">
+          <img class="state22" (click) = "openQues(1)" src="{{stagepic[2]}}">    
+        </ion-col>            
+      </ion-row>
+    </ion-col>
+    <ion-col col-2 class="nopadding">
+      <img class="state3" (click) = "openQues(3)" src="{{stagepic[4]}}">
+    </ion-col>
+    <ion-col col-2 class="nopadding">
+      <img class="state4" (click) = "openQues(4)" src="{{stagepic[5]}}">        
+    </ion-col>
+    <ion-col col-3 class="nopadding">
+      <ion-row class="nopadding">
+        <ion-col col-12 class="nopadding">
+          <img class="state5" (click) = "openQues(6)" src="{{stagepic[7]}}">        
+        </ion-col>
+        <ion-col col-12 class="nopadding">
+          <img class="state55" (click) = "openQues(5)" src="{{stagepic[6]}}">     
+        </ion-col>   
+      </ion-row>
+    </ion-col>
+  </ion-row>
+  <p class="clickmap">*Click map for start*</p>
+    </ion-grid>
+
+<ng-template #ready>
+    <img class="readyload" src="assets/imgs/loading/lg.palette-rotating-ring-loader.gif">
+</ng-template>
+</ion-content>

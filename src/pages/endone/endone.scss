@@ -1,0 +1,70 @@
+ion-modal {
+    .modal-wrapper {
+        position: absolute;
+        top: 25%;
+        left: 10%;
+        display: block;
+        width: 80%;
+        height: 50%; 
+        border: 2vh solid #666666; 
+        border-radius: 10%;   
+    } 
+}
+
+.piclight {
+    display: block;
+    margin: auto;
+    width: 25vh;
+    margin-top: 2vh;
+}
+
+.mail {
+    color: #666666;
+    font-size: 9vh;
+    text-align: center;    
+}
+
+.textconend {
+    text-align: center;
+    font-size: 4vh;
+    color: white;
+    font-weight:bold;
+}
+
+.textscoreend {
+    text-align: center;
+    font-size: 7vh;
+    color: white;
+    font-weight:bold;  
+}
+
+.alertDanger {
+    width: 50vh;
+}
+
+.close {
+    display: block;
+    float: right;
+    font-size: 4.5vh;
+    color: #666666;
+}
+
+.getitem {
+    display: block;
+    margin: auto;
+    height: 20vh;
+}
+
+.textget {
+    font-size: 3.5vh;
+    color: #666666;
+    text-align: center;
+}
+
+.textnumget {
+    font-size: 4.5vh;
+    text-align: center;
+    padding-top: 1.2vh;
+    line-height: 0;
+    color: white;
+}

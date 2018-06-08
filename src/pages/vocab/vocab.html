@@ -1,0 +1,31 @@
+<ion-content class="{{color}}">
+<ion-grid class="gray"> 
+    <ion-row>
+ 
+    <ion-col col-2>
+        <img class="returnlesson" (click)="openchapter()" src="assets/imgs/return.PNG">
+    </ion-col>
+    <ion-col col-8>
+        
+    </ion-col>
+    <ion-col col-2>
+        <ion-icon class="menuicon" ios="ios-menu" md="md-menu" (click)="openmenu()" ></ion-icon>
+    </ion-col>
+  
+    </ion-row>
+  </ion-grid>
+  <div *ngIf = "readyvo;else ready">  
+  <ion-row>
+    <ion-col col-12>
+      <!-- <div class="pink textchapter">{{vocab.n.hiragana}}</div> -->
+      <div class="textchapterhi">{{vocab.n.hiragana}}</div>
+      <div class="textchapterro">[{{vocab.n.romanji}}]</div>
+      <div class="textchapterth">{{vocab.n.thai}}</div>
+    </ion-col>
+  </ion-row>
+  </div>  
+
+<ng-template #ready>
+    <img class="readyload" src="assets/imgs/loading/lg.colorful-progress-loader.gif">
+</ng-template>
+</ion-content>

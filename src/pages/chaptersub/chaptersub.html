@@ -1,0 +1,28 @@
+<ion-content>
+    <ion-grid class="gray"> 
+    <ion-row>
+ 
+    <ion-col col-2>
+        <img class="returnlesson" (click)="openchapter()" src="assets/imgs/return.PNG">
+    </ion-col>
+    <ion-col col-8>
+        <div class="stateCh">LESSON</div>
+    </ion-col>
+    <ion-col col-2>
+        <ion-icon class="menuicon" ios="ios-menu" md="md-menu" (click)="openmenu()" ></ion-icon>
+    </ion-col>
+  
+    </ion-row>
+  </ion-grid>
+<div *ngIf = "readych;else ready">
+  <ion-row>
+    <ion-col col-12 *ngFor="let vocab of vocab">
+      <div class="{{color}} textchapter" (click)="openvocab(vocab)" >{{vocab.n.hiragana}}</div>
+    </ion-col>
+  </ion-row>
+</div>
+
+<ng-template #ready>
+    <img class="readyload" src="assets/imgs/loading/lg.palette-rotating-ring-loader.gif">
+</ng-template>
+</ion-content>

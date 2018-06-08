@@ -1,0 +1,27 @@
+<ion-content>
+  <ion-grid class="gray"> 
+    <ion-row>
+ 
+    <ion-col col-2>
+        <img class="returnlesson" (click)="openlesson()" src="assets/imgs/return.PNG">
+    </ion-col>
+    <ion-col col-8>
+        <div class="stateCh">LESSON</div>
+    </ion-col>
+    <ion-col col-2>
+        <ion-icon class="menuicon" ios="ios-menu" md="md-menu" (click)="openmenu()" ></ion-icon>
+    </ion-col>
+  
+    </ion-row>
+  </ion-grid>
+
+  <ion-row *ngFor="let lesson of lesson">
+    <ion-col col-4  *ngFor="let lesson1 of lesson.chapter">
+      <div class="{{lesson.color}} textlesson" (click)="openchapter(lesson1,lesson.color)">
+        {{lesson1}}        
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>
