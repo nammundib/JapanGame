@@ -65,7 +65,7 @@ export class ChaptersubPage {
     let options = new RequestOptions({ headers: headers });
 
     return new Promise((resolve, reject) => {
-    this.http.get(this.url + 1, options )
+    this.http.get(this.url + this.lesson, options )
     .map(res=> res.json())
     .subscribe(data => {
         console.log(data);
