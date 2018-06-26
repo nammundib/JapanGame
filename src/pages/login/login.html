@@ -1,25 +1,31 @@
-<ion-content class="violet">
-  <ion-grid class="nopadding fixheight"> 
-  <img class="loginlogo" src="assets/imgs/chiangmai-university-logo-english.png">
-  <form novalidate class="formtext" [formGroup]="todo" (ngSubmit)="presentLoadingCustom()">
-    <ion-item class="login">
-      <ion-label class="textmail">CMU Mail</ion-label>
-      <ion-input class="textinput" type="text" formControlName="title"></ion-input>
-    </ion-item>
-    <ion-item class="error" *ngIf="todo.get('title').hasError('required') && todo.get('title').touched">
-        Please input your CMU Mail.
-    </ion-item>
-    <ion-item class="login betweenmail">
-      <ion-label class="textmail">Password</ion-label>
-      <ion-input class="textinput" type="password" formControlName="password"></ion-input>
-    </ion-item>
-    <ion-item class="error" *ngIf="todo.get('password').hasError('required') && todo.get('password').touched">
-        Please input your password.
-    </ion-item>
-    <div *ngIf = "loginerr" class="err">* Email or Password is incorrect</div>
-    <div class="betweenB"></div>
-    <button ion-button class="loginB" [disabled]="todo.invalid">OK</button> 
-  </form>
+<ion-content>
+  <ion-grid class="nopadding fixheight violet">
+    <ion-row>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+      <ion-col col-12 col-xl-6>
+
+        <img class="loginlogo" src="assets/imgs/chiangmai-university-logo-english.png">
+        <form novalidate class="formtext" [formGroup]="todo" (ngSubmit)="presentLoadingCustom()">
+          <ion-item class="login">
+            <ion-label class="textmail">CMU Mail</ion-label>
+            <ion-input class="textinput" type="text" formControlName="title"></ion-input>
+          </ion-item>
+          <ion-item class="error" *ngIf="todo.get('title').hasError('required') && todo.get('title').touched">
+            Please input your CMU Mail.
+          </ion-item>
+          <ion-item class="login betweenmail">
+            <ion-label class="textmail">Password</ion-label>
+            <ion-input class="textinput" type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <ion-item class="error" *ngIf="todo.get('password').hasError('required') && todo.get('password').touched">
+            Please input your password.
+          </ion-item>
+          <div *ngIf="loginerr" class="err">* Email or Password is incorrect</div>
+          <div class="betweenB"></div>
+          <button ion-button class="loginB" [disabled]="todo.invalid">OK</button>
+        </form>
+      </ion-col>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>
-

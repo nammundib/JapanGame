@@ -1,10 +1,16 @@
 <ion-content class="gray">
 
-  <ion-grid class="fixheight"> 
-    <img class="piccorrect" src="assets/imgs/gameover.PNG">
-    <p class="textcorrect">LOST</p>
-    <button ion-button class="buttonpopup" (click)="openMap()">
-        OK
-      </button>
+  <ion-grid class="fixheight">
+    <ion-row>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+      <ion-col col-12 col-xl-6>
+        <img class="piccorrect" src="assets/imgs/gameover.PNG">
+        <p class="textcorrect">LOST</p>
+        <button ion-button class="buttonpopup" (click)="openMap()">
+          OK
+        </button>
+      </ion-col>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

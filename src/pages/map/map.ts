@@ -22,8 +22,8 @@ export class MapPage {
   stagepic;//picture in map
   stage;//stage from storage
   stagepage;//stage for playgamepage
-  stagenum = 1;//stage for playgamepage
-  substage;
+  recent_main_stage = 1;//stage for playgamepage
+  latest_sub_stage;
   totalscore;
   data;//vocab for question
   loading;//don't use
@@ -84,201 +84,201 @@ export class MapPage {
   this.loading.present();
 }
 
-  setMap(){//cheack laststage and picture
+  setMap(){//check laststage and picture
      if(this.stage == "1-0"){  
       this.maponezero();
-      this.stagenum = 1;
+      this.recent_main_stage = 1;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "1-1"){
       this.maponeone();
-      this.stagenum = 1;
+      this.recent_main_stage = 1;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "1-2"){
       this.maponetwo();
-      this.stagenum = 1;
+      this.recent_main_stage = 1;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "1-3"){
       this.maponethree();
-      this.stagenum = 2;
+      this.recent_main_stage = 2;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "2-1"){
       this.maptwoone();
-      this.stagenum = 2;
+      this.recent_main_stage = 2;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "2-2"){
       this.maptwotwo();
-      this.stagenum = 2;
+      this.recent_main_stage = 2;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "2-3"){
       this.maptwothree();
-      this.stagenum = 3;
+      this.recent_main_stage = 3;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "3-1"){
       this.mapthreeone();
-      this.stagenum = 3;
+      this.recent_main_stage = 3;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "3-2"){
       this.mapthreetwo();
-      this.stagenum = 3;
+      this.recent_main_stage = 3;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "3-3"){
       this.mapthreethree();
-      this.stagenum = 4;
+      this.recent_main_stage = 4;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "4-1"){
       this.mapfourone();
-      this.stagenum = 4;
+      this.recent_main_stage = 4;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "4-2"){
       this.mapfourtwo();
-      this.stagenum = 4;
+      this.recent_main_stage = 4;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "4-3"){
       this.mapfourthree();
-      this.stagenum = 5;
+      this.recent_main_stage = 5;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "5-1"){
       this.mapfiveone();
-      this.stagenum = 5;
+      this.recent_main_stage = 5;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "5-2"){
       this.mapfivetwo();
-      this.stagenum = 5;
+      this.recent_main_stage = 5;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "5-3"){
       this.mapfivethree();
-      this.stagenum = 6;
+      this.recent_main_stage = 6;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "6-1"){
       this.mapsixone();
-      this.stagenum = 6;
+      this.recent_main_stage = 6;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "6-2"){
       this.mapsixtwo();
-      this.stagenum = 6;
+      this.recent_main_stage = 6;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "6-3"){
       this.mapsixthree();
-      this.stagenum = 7;
+      this.recent_main_stage = 7;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "7-1"){
       this.mapsevenone();
-      this.stagenum = 7;
+      this.recent_main_stage = 7;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "7-2"){
       this.mapseventwo();
-      this.stagenum = 7;
+      this.recent_main_stage = 7;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "7-3"){
       this.mapseventhree();
-      this.stagenum = 8;
+      this.recent_main_stage = 8;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }else if(this.stage == "8-1"){
       this.mapeightone();
-      this.stagenum = 8;
+      this.recent_main_stage = 8;
       
-        this.stagepage = this.stagenum;
-        this.substage = 2;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 2;
       
     }else if(this.stage == "8-2"){
       this.mapeighttwo();
-      this.stagenum = 8;
+      this.recent_main_stage = 8;
       
-        this.stagepage = this.stagenum;
-        this.substage = 3;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 3;
       
     }else if(this.stage == "8-3"){
       this.mapeightthree();
-      this.stagenum = 8;
+      this.recent_main_stage = 8;
       
-        this.stagepage = this.stagenum;
-        this.substage = 1;
+        this.stagepage = this.recent_main_stage;
+        this.latest_sub_stage = 1;
       
     }
   }
 
   openQues(index){//play game
-    if(index < this.stagenum){//stage clear?
-      //check substage
-      if(index+1 == this.stagenum){
+    if(index < this.recent_main_stage){//stage clear?
+      //check latest_sub_stage
+      if(index+1 == this.recent_main_stage){
         this.navCtrl.setRoot('PlaygamePage',{
           state: this.stagepage,
           data: this.data,
-          substate: this.substage,
-          lastStage: this.stagenum,
+          substate: this.latest_sub_stage,
+          lastStage: this.recent_main_stage,
           totalscore: this.totalscore
         });
       }else {
         this.navCtrl.setRoot('PlaygamePage',{
           substate: 1,
           state: index+1,
-          lastStage: this.stagenum,
+          lastStage: this.recent_main_stage,
           totalscore: this.totalscore
         });
       }
@@ -289,7 +289,7 @@ export class MapPage {
 
    presentToast() {//for check stageclear
     let toast = this.toastCtrl.create({
-      message: 'Clear Stage Before!',
+      message: 'Stage locked, Clear lower stages first',
       duration: 1000,
       position: 'middle',
       cssClass: 'toaststate'

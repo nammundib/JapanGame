@@ -1,144 +1,153 @@
 <ion-content>
-  <ion-grid class="nopadding fixheight"> 
-    <div *ngIf = "tryQ;else ready">
-  <ion-grid class="gray"> 
-  <ion-row>
-    <ion-col col-6>
-  <ion-icon ios="ios-alarm" md="md-alarm" class="head1"></ion-icon>
-    </ion-col>
-<ion-col col-6>
-  <div class="head11"> {{timer.displayTime}} </div>
-</ion-col>
-  </ion-row>
-<ion-row>
-  <ion-col col-10>
-  <div class="head2">score {{score}}</div>
-  </ion-col>
+  <ion-grid class="nopadding fixheight">
+
     <ion-row>
-      <ion-col col-6>
-      <ion-icon class="head12" (click) = "openModalCorrect()" name="heart"></ion-icon>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+      <ion-col col-12 col-xl-6>
+        <div *ngIf="tryQ;else ready">
+          <ion-grid class="gray">
+            <ion-row>
+              <ion-col col-6>
+                <ion-icon ios="ios-alarm" md="md-alarm" class="head1"></ion-icon>
+              </ion-col>
+              <ion-col col-6>
+                <div class="head11"> {{timer.displayTime}} </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-10>
+                <div class="head2">score {{score}}</div>
+              </ion-col>
+              <ion-row>
+                <ion-col col-6>
+                  <ion-icon class="head12" (click)="openModalCorrect()" name="heart"></ion-icon>
+                </ion-col>
+                <ion-col col-6>
+                  <div class="head22">&nbsp;{{life}}</div>
+                </ion-col>
+              </ion-row>
+            </ion-row>
+          </ion-grid>
+
+          <ion-row>
+            <ion-col col-11 class="nopadding">
+              <ion-row class="nopadding">
+                <ion-col col-11 class="nopadding firstques">
+                  <img class="quespic" src="{{quesqic}}">
+                  <ion-label class="questionQ">Q.{{indexquessub+1}}/20</ion-label>
+                  <ion-label class="question">{{questionQ}} </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="between firstch">
+                <ion-col col-1></ion-col>
+                <ion-col col-2>
+                  <img class="chiocepic" (click)="calulatate(0)" src="{{choicepic[0]}}">
+                </ion-col>
+                <ion-col col-8 class="{{choicecolor[0]}}" (click)="calulatate(0)">&nbsp;&nbsp;{{choice1}}</ion-col>
+
+              </ion-row>
+              <ion-row class="between">
+                <ion-col col-1></ion-col>
+                <ion-col col-2>
+                  <img class="chiocepic" (click)="calulatate(1)" src="{{choicepic[1]}}">
+                </ion-col>
+                <ion-col col-9 class="{{choicecolor[1]}}" (click)="calulatate(1)">&nbsp;&nbsp;{{choice2}}</ion-col>
+
+
+              </ion-row>
+
+
+              <ion-row class="between">
+                <ion-col col-1></ion-col>
+                <ion-col col-2>
+                  <img class="chiocepic" (click)="calulatate(2)" src="{{choicepic[2]}}">
+                </ion-col>
+                <ion-col col-9 class="{{choicecolor[2]}}" (click)="calulatate(2)">&nbsp;&nbsp;{{choice3}}</ion-col>
+
+
+              </ion-row>
+              <ion-row class="between">
+                <ion-col col-1></ion-col>
+                <ion-col col-2>
+                  <img class="chiocepic" (click)="calulatate(3)" src="{{choicepic[3]}}">
+                </ion-col>
+                <ion-col col-9 class="{{choicecolor[3]}}" (click)="calulatate(3)">&nbsp;&nbsp;{{choice4}}</ion-col>
+              </ion-row>
+
+              <ion-row class="firstitem">
+                <ion-col col-4>
+                  <ion-row>
+                    <ion-col col-12>
+                      <div class="numitemcut">{{numitemcut}}</div>
+                      <img class="itemI" (click)="cutchoice()" src="assets/imgs/5050.PNG">
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col col-4>
+                  <ion-row>
+                    <ion-col col-12>
+                      <div class="numitemcut">{{numitemskip}}</div>
+                      <img class="itemI" (click)="skipQ()" src="assets/imgs/skip.PNG">
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col col-4>
+                  <ion-row>
+                    <ion-col col-12>
+                      <div class="numitemcut">{{numitemtime}}</div>
+                      <img class="itemI" (click)="addtime()" src="assets/imgs/addtime.PNG">
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+
+
+            </ion-col>
+
+            <ion-col col-1 class="nopadding">
+              <ion-row class="pink {{manageTab[0]}}">
+              </ion-row>
+              <ion-row class="orange {{manageTab[1]}}">
+              </ion-row>
+              <ion-row class="yellow {{manageTab[2]}}">
+              </ion-row>
+              <ion-row class="green {{manageTab[3]}}">
+              </ion-row>
+              <ion-row class="darkgreen {{manageTab[4]}}">
+              </ion-row>
+              <ion-row class="blue {{manageTab[5]}}">
+              </ion-row>
+              <ion-row class="darkblue {{manageTab[6]}}">
+              </ion-row>
+              <ion-row class="violet {{manageTab[7]}}">
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <ng-template #ready>
+          <div class="fixheight">
+            <ion-row class="loadtop">
+              <ion-col col-12>
+              </ion-col>
+            </ion-row>
+            <p class="textload">Stage {{state}}-{{substate}}</p>
+            <ion-row>
+              <ion-col col-12 class="nopadding">
+                <img class="loadbub" src="assets/imgs/loading/giphy.gif">
+              </ion-col>
+            </ion-row>
+            <p class="textload">loading...</p>
+            <ion-row class="loadtop">
+              <ion-col col-12>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ng-template>
+
+
       </ion-col>
-      <ion-col col-6>
-      <div class="head22">&nbsp;{{life}}</div>
-    </ion-col>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
     </ion-row>
-</ion-row>
-  </ion-grid>
-
-  <ion-row>
-    <ion-col col-11 class="nopadding">
-      <ion-row class="nopadding">
-        <ion-col col-11 class="nopadding firstques">
-        <img class="quespic" src="{{quesqic}}">
-        <ion-label class="questionQ">Q.{{indexquessub+1}}/20</ion-label>
-        <ion-label class="question">{{questionQ}}</ion-label>
-        </ion-col>
-      </ion-row>
-  <ion-row class="between firstch">
-     <ion-col col-1></ion-col>
-    <ion-col col-2>
-        <img class = "chiocepic" (click)="calulatate(0)" src="{{choicepic[0]}}">  
-    </ion-col>
-    <ion-col col-8 class="{{choicecolor[0]}}" (click)="calulatate(0)">&nbsp;&nbsp;{{choice1}}</ion-col>
-
-  </ion-row>
-    <ion-row class="between"> 
-      <ion-col col-1></ion-col>
-    <ion-col col-2>
-      <img class = "chiocepic" (click)="calulatate(1)" src="{{choicepic[1]}}">
-    </ion-col>
-    <ion-col col-9 class="{{choicecolor[1]}}" (click)="calulatate(1)">&nbsp;&nbsp;{{choice2}}</ion-col>
-      
-
-  </ion-row>
-
-
-  <ion-row class="between">
-    <ion-col col-1></ion-col>
-    <ion-col col-2>
-      <img class = "chiocepic" (click)="calulatate(2)" src="{{choicepic[2]}}">
-    </ion-col>
-    <ion-col col-9 class="{{choicecolor[2]}}" (click)="calulatate(2)">&nbsp;&nbsp;{{choice3}}</ion-col>
-      
-    
-  </ion-row>
-    <ion-row class="between">
-     <ion-col col-1></ion-col>
-    <ion-col col-2>
-      <img class = "chiocepic" (click)="calulatate(3)" src="{{choicepic[3]}}">
-    </ion-col>
-    <ion-col col-9 class="{{choicecolor[3]}}" (click)="calulatate(3)">&nbsp;&nbsp;{{choice4}}</ion-col>
-  </ion-row>
-
-  <ion-row class="firstitem">
-    <ion-col col-4>
-      <ion-row>
-        <ion-col col-12>
-          <div class="numitemcut">{{numitemcut}}</div>
-          <img class="itemI" (click)="cutchoice()" src="assets/imgs/5050.PNG">
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col col-4>
-      <ion-row>
-        <ion-col col-12>
-          <div class="numitemcut">{{numitemskip}}</div>
-          <img class="itemI" (click)="skipQ()" src="assets/imgs/skip.PNG">  
-        </ion-col>
-      </ion-row> 
-    </ion-col>
-    <ion-col col-4>
-      <ion-row>
-        <ion-col col-12>
-          <div class="numitemcut">{{numitemtime}}</div>
-          <img class="itemI" (click)="addtime()" src="assets/imgs/addtime.PNG">
-        </ion-col>
-      </ion-row> 
-    </ion-col>
-  </ion-row>
-
-
-    </ion-col>
-
-      <ion-col col-1 class="nopadding">
-        <ion-row class="pink {{manageTab[0]}}">
-        </ion-row>
-        <ion-row class="orange {{manageTab[1]}}">
-        </ion-row>
-        <ion-row class="yellow {{manageTab[2]}}">
-        </ion-row>
-        <ion-row class="green {{manageTab[3]}}">
-        </ion-row>
-        <ion-row class="darkgreen {{manageTab[4]}}">
-        </ion-row>
-        <ion-row class="blue {{manageTab[5]}}">
-        </ion-row>
-        <ion-row class="darkblue {{manageTab[6]}}">
-        </ion-row>
-        <ion-row class="violet {{manageTab[7]}}">
-        </ion-row> 
-      </ion-col>
-  </ion-row>
-    </div>
-
-    <ng-template #ready>
-       <div class="fixheight">
-     <ion-row class="loadtop">
-   <ion-col col-12>  
-      </ion-col>  
-    </ion-row>
-    <p class="textload">Stage {{state}}-{{substate}}</p>
- <ion-row >
-   <ion-col col-12 class="nopadding">
-       <img class="loadbub" src="assets/imgs/loading/giphy.gif">     
-      </ion-col>  
-    </ion-row >
-      <p class="textload">loading...</p>
-      <ion-row class="loadtop">
-   <ion-col col-12>  
-      </ion-col>  
-    </ion-row>
-      </div> 
-    </ng-template>
   </ion-grid>
 </ion-content>
