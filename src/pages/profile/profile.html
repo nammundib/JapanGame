@@ -17,7 +17,10 @@
       Stage clear&emsp;&nbsp;: {{statetext}}<br/>
       Total Score&emsp;: {{totalscore}}</div>
       </ng-template>
-      <button ion-button class="profileB" (click) = "logout()">logout</button> 
+    <div *ngIf = "!login" >
+      <button ion-button class="profileA" (click) = "loginCMU()">login with CMU Mail</button> 
+    </div>
+      <button ion-button class="profileB" (click) = "logout()">logout</button>
     </ion-grid>
 
     <div class="textscorepro">SCORE</div>
