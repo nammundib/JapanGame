@@ -30,6 +30,8 @@ export class LoginPage {
   data2: any;
   loginerr = false;
   loading;
+  typeS = "begin";
+  id:any;
 
   constructor( public formBuilder: FormBuilder,
     public storage: Storage,
@@ -46,13 +48,25 @@ export class LoginPage {
     console.log("nichapat_yanwa@cmu.ac.th");
     console.log("qribbonz");
         
-    this.storage.get('id').then((id) => {
-      if(id != null){
-        console.log('Your name is', id);     
+   
+  }
+
+  ionViewWillEnter(){
+     this.storage.get('type').then((typeresult) => {
+      this.typeS = typeresult;
+      if(typeresult == 'student'){
+        console.log('Your name is', typeresult);     
         this.navCtrl.setRoot('MenuPage');
       }
     });
+
+    this.storage.get('id').then((id) => {
+      if(id != null){
+        this.id = id;
+      }
+    });  
   }
+
   logForm(){
     console.log(this.todo.value)
   }
@@ -153,7 +167,19 @@ postCall()
             });
         }else{
           //stage
-          this.storage.get('stageTable').then((stageTable) => {
+          this.storage.get('stageTable').then((stageTable) => {if(this.typeS == "quest"){
+              let dataS = stageTable;
+              for(let i = 0; i < stageTable.length;i++){
+                if(stageTable[i].id == this.id){
+                  dataS.push({
+                    id : this.data2.data.StudentCode,
+                    stage : stageTable[i].stage                        
+                  });
+                }
+              }
+              this.storage.set('stageTable', dataS);
+              this.setName();
+            }else{
             if(stageTable != null){//have data
               console.log('Your name is', stageTable);
               for(let i = 0; i < stageTable.length;i++){
@@ -179,11 +205,26 @@ postCall()
               this.setName();
               this.storage.set('stageTable', this.qp);
             }
+            }
           });
 
           //score
           cheackid = 0;
           this.storage.get('scoreTable').then((scoreTable) => {
+            if(this.typeS == "quest"){
+              let dataQ = scoreTable;
+              for(let i = 0; i < scoreTable.length;i++){
+                if(scoreTable[i].id == this.id){
+                  dataQ.push({
+                    id : this.data2.data.StudentCode,
+                    stage : scoreTable[i].stage,
+                    substage : scoreTable[i].substage,
+                    score: scoreTable[i].score                          
+                  });
+                }
+              }
+              this.storage.set('scoreTable', dataQ);
+            }else{
             if(scoreTable != null){//have data
               console.log('Your name is', scoreTable);
               for(let i = 0; i < scoreTable.length;i++){
@@ -213,11 +254,27 @@ postCall()
               });              
               this.storage.set('scoreTable', scorenew);
             }
+            }
           });
+          
 
           //item
           cheackid = 0;
           this.storage.get('itemTable').then((itemTable) => {
+            if(this.typeS == "quest"){
+              let dataI = itemTable;
+              for(let i = 0; i < itemTable.length;i++){
+                if(itemTable[i].id == this.id){
+                  dataI.push({
+                    id : this.data2.data.StudentCode,
+                    itemC : itemTable[i].itemC,
+                    itemS : itemTable[i].itemS,
+                    itemA : itemTable[i].itemA                                   
+                  });
+                }
+              }
+              this.storage.set('itemTable', dataI);
+            }else{
             if(itemTable != null){//have data
               console.log('Your name is', itemTable);
               for(let i = 0; i < itemTable.length;i++){
@@ -244,6 +301,7 @@ postCall()
                   itemA : 2      
               });              
               this.storage.set('itemTable', itemnew);
+            }
             }
           });
           this.loading.dismiss(() => {

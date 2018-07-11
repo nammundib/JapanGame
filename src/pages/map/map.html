@@ -1,11 +1,14 @@
 <ion-content>
   <ion-grid class="nopadding fixheight" *ngIf="readymap;else ready">
-    <ion-grid class="gray">
+    
+    <ion-grid>
       <ion-row>
-
-        <ion-col col-10>
+        
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+        <ion-col class="gray" col-10  col-xl-6>
           <img class="return" (click)="openMenu()" src="assets/imgs/return.PNG">
         </ion-col>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
 
       </ion-row>
     </ion-grid>

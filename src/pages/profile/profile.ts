@@ -1,3 +1,4 @@
+import { LoginPage } from './../login/login';
 import { HomePage } from './../home/home';
 import { PlaygamePage } from './../playgame/playgame';
 import { Component } from '@angular/core';
@@ -30,6 +31,7 @@ export class ProfilePage {
   scoreTable = [];
   totalscore = 0;
   statetext;
+  login = false;
   constructor(public navCtrl: NavController, 
     public storage: Storage,
     public navParams: NavParams) {
@@ -191,6 +193,7 @@ export class ProfilePage {
     this.storage.get('type').then((type)=> {
       if(type == "student"){
         this.type = true;
+        this.login = true;
         this.typeR = "student";
       }
     });
@@ -244,6 +247,10 @@ export class ProfilePage {
 
   openMenu(){
     this.navCtrl.pop();
+  }
+
+  loginCMU(){
+    this.navCtrl.push('LoginPage');
   }
 
   openMap(stage,substage){
