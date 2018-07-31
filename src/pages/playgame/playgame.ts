@@ -173,6 +173,10 @@ export class PlaygamePage {
         // this.dataques();
     }
 
+    ionViewCanLeave(){
+        this.timer.runTimer = false;
+    }
+
     ionViewWillEnter() {
         this.storage.get('id').then((id) => {
             this.idCode = id;
