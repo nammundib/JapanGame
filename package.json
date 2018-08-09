@@ -42,7 +42,8 @@
     "sw-toolbox": "3.6.0",
     "typescript": "~2.6.2",
     "zone.js": "0.8.26",
-    "cordova-browser": "~5.0.3"
+    "cordova-browser": "~5.0.3",
+	"node-sass": "^4.6.0"
   },
   "devDependencies": {},
   "description": "An Ionic project",

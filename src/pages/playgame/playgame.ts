@@ -172,8 +172,12 @@ export class PlaygamePage {
         // this.initTimer();
         // this.dataques();
     }
-
-    ionViewWillEnter() {
+	
+	ionViewCanLeave(){
+        this.timer.runTimer = false;
+    }
+    
+	ionViewWillEnter() {
         this.storage.get('id').then((id) => {
             this.idCode = id;
         });
@@ -397,7 +401,7 @@ export class PlaygamePage {
                 let ran = Math.floor(Math.random() * 4);
                 if (this.substate == 1) {
                     if (this.debug) {
-                        this.questionQ = this.staticquestion[ranstaic].stem.hiragana + " " + this.staticquestion[ranstaic].stem.thai;
+                        this.questionQ = this.staticquestion[ranstaic].stem.hiragana;
                     }
                     else {
                         this.questionQ = this.staticquestion[ranstaic].stem.hiragana;
@@ -433,7 +437,7 @@ export class PlaygamePage {
                     this.stateData = this.substate + 1;
                     if (ransub2 == 0) {
                         if (this.debug) {
-                            this.questionQ = this.staticquestion[ranstaic].stem.hiragana + " " + this.staticquestion[ranstaic].stem.thai;
+                            this.questionQ = this.staticquestion[ranstaic].stem.hiragana;
                         }
                         else {
                             this.questionQ = this.staticquestion[ranstaic].stem.hiragana;
@@ -465,7 +469,7 @@ export class PlaygamePage {
                         }
                     } else {
                         if (this.debug) {
-                            this.questionQ = this.staticquestion[ranstaic].stem.thai + " " + this.staticquestion[ranstaic].stem.hiragana;
+                            this.questionQ = this.staticquestion[ranstaic].stem.thai;
                         }
                         else {
                             this.questionQ = this.staticquestion[ranstaic].stem.thai;
@@ -498,7 +502,7 @@ export class PlaygamePage {
                     }
                 } else if (this.substate == 3) {
                     if (this.debug) {
-                        this.questionQ = this.staticquestion[ranstaic].stem.thai + " " + this.staticquestion[ranstaic].stem.hiragana;
+                        this.questionQ = this.staticquestion[ranstaic].stem.thai;
                     }
                     else {
                         this.questionQ = this.staticquestion[ranstaic].stem.thai;
