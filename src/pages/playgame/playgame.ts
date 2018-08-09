@@ -1,21 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- @meetip Sign out
-0
-0 1 nammundib/JapanGame
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights
-JapanGame/src/pages/playgame/playgame.ts
-4cc35aa  9 days ago
-@nammundib nammundib เมื่อออกเพจให้หยุดเวลาทุกกรณี
-@nammundib @meetip
-     
-1249 lines (1180 sloc)  51.3 KB
 import { EndonePage } from './../endone/endone';
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -1263,16 +1245,4 @@ export class PlaygamePage {
         toast.present();
     }
 }
-© 2018 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-API
-Training
-Shop
-Blog
-About
-Press h to open a hovercard with more details.
+ 
