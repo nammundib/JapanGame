@@ -48,10 +48,11 @@ cheackS = false;
         // this.navCtrl.setRoot(LoginGuestPage);
     
   }
-
+//
   openlogin(){  
     if(!this.cheackQ){
     this.storage.get('id').then((id) => {
+      console.log('Your name is', id);  
       if(id == null){
         console.log('Your name is', id);        
         this.navCtrl.push('LoginPage');    
@@ -63,6 +64,31 @@ cheackS = false;
   }else {
         this.navCtrl.setRoot('MenuPage');    
   }
+  } 
+  //*/
+  
+//new openlogin
+/*/    openlogin(){  
+    if(!this.cheackQ){
+    this.storage.get('type').then((type) => {
+      console.log('Your type is', type);
+      console.log(type === "quest");
+      if(type == null){
+      //  console.log('Your name is', id);        
+        this.navCtrl.push('LoginPage');    
+      }else if (type === "quest"){
+      //  console.log('Your name is', id);        
+        this.navCtrl.push('LoginPage');    
+      } 
+	  else {
+        console.log('Your type is', type); 
+        this.navCtrl.push('MenuPage');
+      }
+    });       
+  }else {
+        this.navCtrl.setRoot('MenuPage');    
   }
-
+}
+ */
+ 
 }

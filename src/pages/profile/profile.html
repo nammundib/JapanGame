@@ -1,4 +1,8 @@
 <ion-content>
+<ion-grid class="nopadding fixheight">
+    <ion-row>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+  <ion-col col-12 col-xl-6>
   <div *ngIf = "readypro;else ready">
     <ion-row class="gray">
       <ion-col>
@@ -58,4 +62,8 @@
   <ng-template #ready>
     <img class="readyload" src="assets/imgs/loading/lg.palette-rotating-ring-loader.gif">
 </ng-template>
+      </ion-col>
+      <ion-col col-xl-3 class="hidden-lg-down bghidden"> </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
