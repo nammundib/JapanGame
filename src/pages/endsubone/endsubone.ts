@@ -5,6 +5,7 @@ import { EndonePage } from './../endone/endone';
 import { MenuPage } from '../menu/menu';
 import { MapPage } from '../map/map';
 import { Storage } from '@ionic/storage';
+import { Http, Headers, RequestOptions } from '@angular/http';
 /**
  * Generated class for the EndsubonePage page.
  *
@@ -30,66 +31,27 @@ export class EndsubonePage {
   lastStage;
   stageTable;
   scoreTable;
+  staticForSave;
+  typeForSave;
+  urlStatic = 'http://159.65.142.130/api/setVocabMistake/';
+  urlScore = 'http://159.65.142.130/api/updateScoreStudent/'
 
-  constructor(public navCtrl: NavController, public storage: Storage,public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public storage: Storage,public navParams: NavParams,
+        public http: Http,) {
     this.data = navParams.get('data');
     this.state = navParams.get('state');
     this.substate = navParams.get('substate');
     this.score = navParams.get('score');
     this.totalscore = navParams.get('totalscore');
     this.lastStage =navParams.get('lastStage');
+    this.staticForSave = navParams.get('static');
+    this.typeForSave = navParams.get('type');
     console.log("end state"+ this.state);
     console.log("end state"+ this.lastStage);
     console.log("end score"+ this.score);
     console.log("end total"+ this.totalscore);
-    console.log("end data"+ this.data);
-    // if(this.substate < 4){
-    //   this.foot = "next" + this.state + "-" + this.substate;
-    //   if(this.lastStage <= this.state){
-
-    //     let idCode;
-    //       this.storage.get('id').then((id)=> {
-    //         idCode = id;
-    //       });
-    
-    // this.storage.get('stageTable').then((stageTable)=> {
-    //   this.stageTable = stageTable;
-    //   console.log(this.stageTable);
-      
-    //    for(let i = 0; i < stageTable.length;i++){
-    //     if(stageTable[i].id == idCode){
-    //       this.stageTable[i].stage = this.state+"-"+(this.substate-1);
-    //     }
-    //   }
-        
-    //   console.log(this.stageTable);
-    // });
-
-    // this.storage.set('stageTable', this.stageTable);
-        
-    //     // this.storage.set('state', this.state+"-"+(this.substate-1));
-    //     // console.log(this.state+"-"+(this.substate-1));
-
-    //     //   console.log('state has been removed'); 
-    //   }
-    // }else {
-    //   this.foot = "END STATE";
-    // }
-    // if(this.score > 18){
-    //   this.textwin = " "+ "たいへん よく できました。";
-    // }else if(this.score > 16){
-    //   this.textwin = " "+ "よく できました。";
-    // }else{ 
-    //   this.textwin  = " "+ "がんばりましょう。";
-    // }
+    console.log("end data"+ this.data);    
   }
-
-  // ionViewWillEnter(){
-  //   this.storage.get('state').then((state)=> {
-  //     this.stagestore = state;
-  //     console.log(this.stagestore);
-  //   });
-  // }
 
   ionViewWillEnter(){ 
     this.storage.get('id').then((id)=> {
@@ -123,49 +85,68 @@ export class EndsubonePage {
     this.storage.get('scoreTable').then((scoreTable)=> {
       this.scoreTable = scoreTable;    
       if(scoreTable != null){
-       for(let i = 0; i < scoreTable.length;i++){
-        if(scoreTable[i].id == this.idCode){
-            if(scoreTable[i].stage == this.state){
-              if(scoreTable[i].substage == (this.substate-1)){
-                if(scoreTable[i].score < this.score){
-                  this.scoreTable[i].score = this.score;
-                  checkscore = 1;
-                  this.storage.set('scoreTable',this.scoreTable);
-                }else{
-                  checkscore = 2;
+        if(this.score !== undefined){    
+          for(let i = 0; i < scoreTable.length;i++){
+            if(scoreTable[i].id == this.idCode){
+                if(scoreTable[i].stage == this.state){
+                  if(scoreTable[i].substage == (this.substate-1)){
+                    if(scoreTable[i].score < this.score){
+                      this.scoreTable[i].score = this.score;
+                      checkscore = 1;
+                      this.storage.set('scoreTable',this.scoreTable);
+                      //saveScoreIndatabase
+                      if(this.typeForSave == "student"){ 
+                          let scoreForSave = [{
+                            studentID: this.idCode,
+                            stage: this.state+"-"+(this.substate-1),
+                            score: this.score
+                          }]
+                          this.getCallScoreSave(scoreForSave);
+                        console.log("saveScoreInDatabase: ",scoreForSave);                    
+                      }
+                    }else{
+                      checkscore = 2;
+                    }
+                  }
                 }
               }
             }
         
-      }
-       }
-    if(checkscore == 0){
-      this.scoreTable.push({
-        id: this.idCode,
-        stage : this.state,
-        substage : (this.substate-1),
-        score : this.score            
-      });
+        if(checkscore == 0){
+          //saveScoreIndatabase
+          if(this.typeForSave == "student"){        
+            let scoreForSave = [{
+              studentID: this.idCode,
+              stage: this.state+"-"+(this.substate-1),
+              score: this.score
+            }]
+            this.getCallScoreSave(scoreForSave);
+            console.log("saveScoreInDatabase: ",scoreForSave);
+          }
 
-      this.storage.set('scoreTable',this.scoreTable);
-      }      
+          this.scoreTable.push({
+            id: this.idCode,
+            stage : this.state,
+            substage : (this.substate-1),
+            score : this.score            
+          });
+
+          this.storage.set('scoreTable',this.scoreTable);
+          }  
+      }    
     }
       
 
     });
-
-    // this.storage.get('scoreTable').then((scoreTable) => {
-    //   if(scoreTable != null){
-    //     let data1 = scoreTable;
-    //     data1.push({
-    //       id : this.idCode,
-    //       stage : this.state+"-"+(this.substate-1),
-    //       score : this.score              
-    //     });
-
-    //   this.storage.set('scoreTable',data1);
-    //   }
-    // });
+    //static save    
+    if(this.staticForSave !== undefined && this.staticForSave.length > 0){
+      let staticVocab = [{
+        "type": this.typeForSave,
+        "mistake":this.staticForSave
+      }]
+      this.getCallStaticSave(staticVocab);
+      console.log("saveStaticInDatabase: ",staticVocab);
+    }
 
     if(this.substate < 4){
       this.foot = "next " + this.state + "-" + this.substate;
@@ -180,29 +161,71 @@ export class EndsubonePage {
     }else{ 
       this.textwin  = " "+ "がんばりましょう。";
     }
-    // let idCode;
-    // this.storage.get('id').then((id)=> {
-    //   idCode = id;
-    // });
-    
-    // this.storage.get('stageTable').then((stageTable)=> {
-    //   this.stageTable = stageTable;
-    //   console.log(this.stageTable);
-      
-    //    for(let i = 0; i < stageTable.length;i++){
-    //     if(stageTable[i].id == idCode){
-    //       this.state = this.stageTable[i].stage;
-    //     }
-    //   }
-        
-    //   console.log(this.state);
-    //   // this.setMap();
-    // });
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EndsubonePage');
+  }
+
+  getCallStaticSave(staticVocab) {
+        let headers = new Headers(
+        {'Content-Type': 'application/json' 
+    });
+    let options = new RequestOptions({ headers: headers });    
+    let postParams = {
+        params :{
+          content: staticVocab,
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http.post(this.urlStatic,postParams,options)
+      .toPromise()
+      .then((response) =>
+      {
+        console.log('API Response : ', response.json());
+        resolve(response.json());
+
+      })
+      .catch((error) =>
+      {
+        console.error('API Error : ', error.status);
+        console.error('API Error : ', JSON.stringify(error));
+        this.getCallStaticSave(staticVocab);
+        reject(error.json());
+      });
+    });
+  }
+
+  getCallScoreSave(scoreForSave) {
+        let headers = new Headers(
+        {'Content-Type': 'application/json' 
+    });
+    let options = new RequestOptions({ headers: headers });    
+    let postParams = {
+        params :{
+          content: scoreForSave,
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http.post(this.urlScore,postParams,options)
+      .toPromise()
+      .then((response) =>
+      {
+        console.log('API Response : ', response.json());
+        resolve(response.json());
+
+      })
+      .catch((error) =>
+      {
+        console.error('API Error : ', error.status);
+        console.error('API Error : ', JSON.stringify(error));
+        this.getCallStaticSave(scoreForSave);
+        reject(error.json());
+      });
+    });
   }
 
   dismiss(){  
