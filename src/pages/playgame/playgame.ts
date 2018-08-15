@@ -110,6 +110,8 @@ export class PlaygamePage {
     staticquestion = [];
     vocabstatic = [];
     checkQueStatic;
+    staticForSave =[];
+    typeForSave;
 
     constructor(public navCtrl: NavController,
         public alerCtrl: AlertController,
@@ -178,6 +180,10 @@ export class PlaygamePage {
     }
 
     ionViewWillEnter() {
+        this.storage.get('type').then((type)=> {
+        this.typeForSave = type;
+
+        });
         this.storage.get('id').then((id) => {
             this.idCode = id;
         });
@@ -198,7 +204,9 @@ export class PlaygamePage {
             if (staticTable != null) {
                 for (let i = 0; i < staticTable.length; i++) {
                     if (staticTable[i].UserID == this.idCode) {
-                        this.staticquestion.push(staticTable[i]);
+                        if(staticTable[i].stage == this.state && staticTable[i].substate >= this.substate){
+                            this.staticquestion.push(staticTable[i]);
+                        }
                     }
                 }
                 console.log("staticquestion = " + this.staticquestion)
@@ -848,7 +856,10 @@ export class PlaygamePage {
                 setTimeout(() => {
                     this.timer.runTimer = false;
                 }, 1000);
-                this.navCtrl.setRoot('LostPage');
+                this.navCtrl.setRoot('LostPage',{
+                    static: this.staticForSave,
+                    type:  this.typeForSave
+                });
             } else {
                 if (this.indexquessub != 19) {
                     this.switchQues();
@@ -862,7 +873,9 @@ export class PlaygamePage {
                         score: this.score,
                         state: this.state,
                         substate: this.stateData,
-                        lastStage: this.lastStage
+                        lastStage: this.lastStage,
+                        static: this.staticForSave,
+                        type: this.typeForSave
                     });
                 }
             }
@@ -897,7 +910,9 @@ export class PlaygamePage {
                         score: this.score,
                         state: this.state,
                         substate: this.stateData,
-                        lastStage: this.lastStage
+                        lastStage: this.lastStage,
+                        static: this.staticForSave,
+                        type:  this.typeForSave
                     });
 
                 }, 1000);
@@ -960,7 +975,10 @@ export class PlaygamePage {
                         setTimeout(() => {
                             this.timer.runTimer = false;
                         }, 1000);
-                        this.navCtrl.setRoot('LostPage');
+                        this.navCtrl.setRoot('LostPage',{
+                            static: this.staticForSave,
+                            type:  this.typeForSave
+                        });
                     }
                     //   this.openModalInCorrect();
                 }
@@ -976,7 +994,8 @@ export class PlaygamePage {
     saveStatic(question) {
         // this.storage.get('staticTable').then((staticTable) => {
         // if(staticTable != null){//have data
-        // this.static = staticTable;
+        // this.static = staticTable; 
+        this.staticForSave.push({vocabID: question.stem.vocabID});
         console.log("GGGGGGG");
         console.log("question.stem.vocabID = " + question.stem.vocabID);
         let checkstatic = false;
@@ -1021,7 +1040,9 @@ export class PlaygamePage {
                     thai: question.stem.thai
                 },
                 UserID: this.idCode,
-                count: 1
+                count: 1,
+                stage:this.state,
+                substate:this.substate
             });
             this.storage.set('staticTable', this.static);
         } else {
