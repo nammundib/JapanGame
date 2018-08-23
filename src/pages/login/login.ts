@@ -51,10 +51,19 @@ export class LoginPage {
       password: ['', Validators.required]
     });
 
-    if (this.GetParam('access_token')) {
-      this.getUserWithAccessToken(this.GetParam('access_token'))
-    } else {
-      this.login();
+    if  (this.storage.get('id') && this.storage.get('fullname')){
+      let afterLoginData = {
+        student_id: this.storage.get('id'),
+        firstname_TH: this.storage.get('firstname'),
+        lastname_TH: this.storage.get('lastname')
+      }
+      this.doAfterLogin(afterLoginData)
+    }else{
+      if (this.GetParam('access_token')) {
+        this.getUserWithAccessToken(this.GetParam('access_token'))
+      } else {
+        this.login();
+      }
     }
   }
 
@@ -165,6 +174,7 @@ export class LoginPage {
         lastName: responseData.lastname_TH
       }
     }
+
     if (this.data2.data == null) {
       console.log("no user data returned", responseData);
     } else {
