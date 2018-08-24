@@ -1,16 +1,17 @@
-import { ProfilePage } from './../profile/profile';
-import { CreditPage } from './../credit/credit';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,MenuController,ViewController } from 'ionic-angular';
+import {ProfilePage} from './../profile/profile';
+import {CreditPage} from './../credit/credit';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, MenuController, ViewController} from 'ionic-angular';
 
-import { LoadingController } from 'ionic-angular';
-import { Http } from '@angular/http';
-import { Storage } from '@ionic/storage';
-import { HomePage } from '../home/home';
-import { LoginPage } from '../login/login';
-import { MapPage } from '../map/map';
-import { LessonPage } from '../lesson/lesson';
-import { Platform } from 'ionic-angular';
+import {LoadingController} from 'ionic-angular';
+import {Http} from '@angular/http';
+import {Storage} from '@ionic/storage';
+import {HomePage} from '../home/home';
+import {LoginPage} from '../login/login';
+import {MapPage} from '../map/map';
+import {LessonPage} from '../lesson/lesson';
+import {Platform} from 'ionic-angular';
+
 /**
  * Generated class for the MenuPage page.
  *
@@ -35,6 +36,7 @@ export class MenuPage {
   name;
   readymenu = false;
   loading;
+
   constructor(
     public navCtrl: NavController,
     private http: Http,
@@ -43,21 +45,21 @@ export class MenuPage {
     public menuCtrl: MenuController,
     public viewCtrl: ViewController,
     public loadingCtrl: LoadingController,
-    public platform: Platform ) {
+    public platform: Platform) {
     this.platform = platform;
     this.firstname = this.navParams.get('data');
     // if(this.firstname !== undefined){
     //   this.fullname = this.firstname;
     //   this.name = this.firstname;
-      // this.readymenu = true;
-      // this.storage.get('state').then((state)=> {
-      // if(state === "1-0"){
-      //   this.state = state;
-      //   this.statetext = "Begin";
-      // }else{
-      //   this.state = state;
-      //   this.statetext = state;
-      // }
+    // this.readymenu = true;
+    // this.storage.get('state').then((state)=> {
+    // if(state === "1-0"){
+    //   this.state = state;
+    //   this.statetext = "Begin";
+    // }else{
+    //   this.state = state;
+    //   this.statetext = state;
+    // }
     // });
     // }else{
     // this.presentLoadingCustom();
@@ -74,25 +76,24 @@ export class MenuPage {
     //   console.log(this.data);
 
 
-    
   }
 
-    presentLoadingCustom() {
-  this.loading = this.loadingCtrl.create({
-    spinner: 'hide',
-    content: `
+  presentLoadingCustom() {
+    this.loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
        <img src="assets/imgs/loading/lg.palette-rotating-ring-loader.gif">     
      `
-  });
-  // loading.onDidDismiss(() => {
-  //   console.log('Dismissed loading');
-  // });
+    });
+    // loading.onDidDismiss(() => {
+    //   console.log('Dismissed loading');
+    // });
 
-  this.loading.present();
-  this.loaddata();
-}
+    this.loading.present();
+    this.loaddata();
+  }
 
-  loaddata(){    
+  loaddata() {
     // this.storage.get('state').then((state)=> {
     //   if(state === "1-0"){
     //     this.state = state;
@@ -114,7 +115,7 @@ export class MenuPage {
     //           console.log('Dismissed loading');
     //         });
     //     }); 
-        
+
     //   }else {
     //     this.storage.get('name').then((name)=> {
     //       this.name = name;
@@ -127,10 +128,10 @@ export class MenuPage {
 
     // });
 
-      // this.navCtrl.setRoot('MenuPage'); 
+    // this.navCtrl.setRoot('MenuPage');
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     console.log('ionViewWillEnter');
     // this.storage.get('state').then((state)=> {
     //   if(state === "1-0"){
@@ -142,55 +143,55 @@ export class MenuPage {
     //   }
     // });
     let idCode;
-    this.storage.get('id').then((id)=> {
+    this.storage.get('id').then((id) => {
       idCode = id;
     });
 
     this.storage.get('stageTable').then((stageTable) => {
-      for(let i = 0; i < stageTable.length;i++){
-        if(stageTable[i].id == idCode){
+      for (let i = 0; i < stageTable.length; i++) {
+        if (stageTable[i].id == idCode) {
           this.state = stageTable[i].stage;
-          if(this.state === "1-0"){
+          if (this.state === "1-0") {
             this.statetext = "Begin";
-          }else{
+          } else {
             this.statetext = this.state;
           }
         }
       }
     });
-    this.storage.get('type').then((type)=> {
+    this.storage.get('type').then((type) => {
       console.log(type);
-      if(type == "student"){
+      if (type == "student") {
 
-        this.storage.get('fullname').then((fullname)=> {
+        this.storage.get('fullname').then((fullname) => {
           this.fullname = fullname;
           this.typemenu = true;
-        }); 
-        
-      }else {
-        this.storage.get('id').then((id)=> {
+        });
+
+      } else {
+        this.storage.get('id').then((id) => {
           this.name = id;
         });
       }
 
     });
 
-          this.readymenu = true;
+    this.readymenu = true;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
   }
 
-  ngOnInit(){ 
-    
+  ngOnInit() {
+
     // this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
   protect() {
     this.storage.get('id').then((id) => {
-      if(id == null){
-        console.log('Your name is', id);     
+      if (id == null) {
+        console.log('Your name is', id);
         this.navCtrl.setRoot('LoginPage');
         return false;
       }
@@ -198,27 +199,27 @@ export class MenuPage {
     return true;
   }
 
-  openprofile(){
-    this.navCtrl.push('ProfilePage');    
-  }
-  
-  openMap(){
-    this.navCtrl.push('MapPage',{
-        state: this.state,
-      });
+  openprofile() {
+    this.navCtrl.push('ProfilePage');
   }
 
-  openLesson(){
-    this.navCtrl.push('LessonPage');    
+  openMap() {
+    this.navCtrl.push('MapPage', {
+      state: this.state,
+    });
   }
 
-  openCre(){
+  openLesson() {
+    this.navCtrl.push('LessonPage');
+  }
+
+  openCre() {
     this.navCtrl.push('CreditPage');
   }
-    
+
   removeName() {
     this.storage.remove('id').then(() => {
-      console.log('name has been removed');    
+      console.log('name has been removed');
       this.navCtrl.setRoot(HomePage);
     });
     // this.storage.clear().then(() => {
@@ -226,7 +227,7 @@ export class MenuPage {
     // });
   }
 
-  exitApp(){
-     this.platform.exitApp();
+  exitApp() {
+    this.platform.exitApp();
   }
 }

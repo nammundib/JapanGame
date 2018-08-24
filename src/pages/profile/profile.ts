@@ -281,6 +281,9 @@ export class ProfilePage {
     // this.storage.clear().then(() => {
     //   console.log('Keys have been cleared');
     // });
+    this.storage.remove('fullname')
+    this.storage.remove('firstname')
+    this.storage.remove('lastname')
     
   }
 }

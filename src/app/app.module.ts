@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { Storage } from '@ionic/storage';
-import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -25,6 +24,10 @@ import { ChapterPage } from '../pages/chapter/chapter';
 import { ChaptersubPage } from './../pages/chaptersub/chaptersub';
 import { VocabPage } from '../pages/vocab/vocab';
 import { CreditPage } from '../pages/credit/credit';
+import { LoginPageModule } from "../pages/login/login.module";
+import { HttpClientModule} from "@angular/common/http";
+import {InAppBrowser } from "@ionic-native/in-app-browser";
+import {HttpModule} from "@angular/http";
 
 let storage = new Storage({});
 
@@ -36,8 +39,10 @@ let storage = new Storage({});
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    HttpClientModule,
     HttpModule,
+    LoginPageModule,
+    IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -49,6 +54,7 @@ let storage = new Storage({});
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

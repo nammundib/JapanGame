@@ -2,7 +2,8 @@ import { ChaptersubPage } from './../chaptersub/chaptersub';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Http,Headers , RequestOptions } from '@angular/http';
+// import { HttpClient } from "@angular/common/http";
+import { Http } from "@angular/http";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
