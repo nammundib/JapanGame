@@ -6,6 +6,9 @@ import { MenuPage } from '../menu/menu';
 import { MapPage } from '../map/map';
 import { Storage } from '@ionic/storage';
 import { Http, Headers, RequestOptions } from '@angular/http';
+
+import {SERVER} from "../../app/app.config";
+
 /**
  * Generated class for the EndsubonePage page.
  *
@@ -33,8 +36,8 @@ export class EndsubonePage {
   scoreTable;
   staticForSave;
   typeForSave;
-  urlStatic = 'http://159.65.142.130/api/setVocabMistake/';
-  urlScore = 'http://159.65.142.130/api/updateScoreStudent/'
+  urlStatic = SERVER + '/api/setVocabMistake/';
+  urlScore = SERVER + '/api/updateScoreStudent/';
 
   constructor(public navCtrl: NavController, public storage: Storage,public navParams: NavParams,
         public http: Http,) {

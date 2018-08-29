@@ -12,7 +12,7 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {MenuPage} from '../menu/menu';
 import {JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
 import {InAppBrowser} from "@ionic-native/in-app-browser";
-import {getOAuthAuthenUrl, getOAuthAuthenUrlMobile, OAUTH_REDIRECT_URI} from "../../app/app.config";
+import {getOAuthAuthenUrl, getOAuthAuthenUrlMobile, OAUTH_REDIRECT_URI,SERVER} from "../../app/app.config";
 
 /**
  * Generated class for the LoginPage page.
@@ -178,6 +178,8 @@ export class LoginPage {
     if (this.data2.data == null) {
       console.log("no user data returned", responseData);
     } else {
+
+      
       //stage
       this.storage.get('stageTable').then((stageTable) => {
         if (this.typeS == "quest") {
