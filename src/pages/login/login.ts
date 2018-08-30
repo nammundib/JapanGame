@@ -180,19 +180,6 @@ export class LoginPage {
     } else {
       //stage
       this.storage.get('stageTable').then((stageTable) => {
-        if (this.typeS == "quest") {
-          let dataS = stageTable;
-          for (let i = 0; i < stageTable.length; i++) {
-            if (stageTable[i].id == this.id) {
-              dataS.push({
-                id: this.data2.data.StudentCode,
-                stage: stageTable[i].stage
-              });
-            }
-          }
-          this.storage.set('stageTable', dataS);
-          this.setName();
-        } else {
           if (stageTable != null) {//have data
             console.log('Your name is', stageTable);
             for (let i = 0; i < stageTable.length; i++) {
@@ -219,25 +206,11 @@ export class LoginPage {
             this.storage.set('stageTable', this.qp);
           }
         }
-      });
+      );
 
       //score
       cheackid = 0;
-      this.storage.get('scoreTable').then((scoreTable) => {
-        if (this.typeS == "quest") {
-          let dataQ = scoreTable;
-          for (let i = 0; i < scoreTable.length; i++) {
-            if (scoreTable[i].id == this.id) {
-              dataQ.push({
-                id: this.data2.data.StudentCode,
-                stage: scoreTable[i].stage,
-                substage: scoreTable[i].substage,
-                score: scoreTable[i].score
-              });
-            }
-          }
-          this.storage.set('scoreTable', dataQ);
-        } else {
+      this.storage.get('scoreTable').then((scoreTable) => {        
           if (scoreTable != null) {//have data
             console.log('Your name is', scoreTable);
             for (let i = 0; i < scoreTable.length; i++) {
@@ -268,26 +241,12 @@ export class LoginPage {
             this.storage.set('scoreTable', scorenew);
           }
         }
-      });
+      );
 
 
       //item
       cheackid = 0;
-      this.storage.get('itemTable').then((itemTable) => {
-        if (this.typeS == "quest") {
-          let dataI = itemTable;
-          for (let i = 0; i < itemTable.length; i++) {
-            if (itemTable[i].id == this.id) {
-              dataI.push({
-                id: this.data2.data.StudentCode,
-                itemC: itemTable[i].itemC,
-                itemS: itemTable[i].itemS,
-                itemA: itemTable[i].itemA
-              });
-            }
-          }
-          this.storage.set('itemTable', dataI);
-        } else {
+      this.storage.get('itemTable').then((itemTable) => {        
           if (itemTable != null) {//have data
             console.log('Your name is', itemTable);
             for (let i = 0; i < itemTable.length; i++) {
@@ -316,7 +275,7 @@ export class LoginPage {
             this.storage.set('itemTable', itemnew);
           }
         }
-      });
+      );
       this.navCtrl.push('MenuPage');
     }
   }
