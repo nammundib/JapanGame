@@ -301,7 +301,9 @@ export class PlaygamePage {
                 }, error => {
                     console.log('API Error : ', error.status);
                     console.log('API Error : ', JSON.stringify(error));
-                    this.getCall();
+                    setTimeout(() => {
+                        this.getCall();                        
+                    }, 2000);
                     reject(error.json());
                 });
         });

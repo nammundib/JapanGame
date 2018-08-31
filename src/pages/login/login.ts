@@ -168,11 +168,20 @@ export class LoginPage {
     let cheackid = 0;
     this.data2 = {data: null}
     if (responseData) {
-      this.data2.data = {
-        StudentCode: responseData.student_id,
-        FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
-        FirstName: responseData.firstname_TH,
-        lastName: responseData.lastname_TH
+      if(typeof responseData.student_id !== 'undefined'){
+        this.data2.data = {
+          StudentCode: responseData.student_id,
+          FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
+          FirstName: responseData.firstname_TH,
+          lastName: responseData.lastname_TH
+        }
+      }else{        
+        this.data2.data = {
+          StudentCode: responseData.cmuitaccount,
+          FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
+          FirstName: responseData.firstname_TH,
+          lastName: responseData.lastname_TH
+        }
       }
       
     }

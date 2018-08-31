@@ -5,7 +5,7 @@ export const OAUTH_CLIENT_SECRET = 'kUYa77PQeKhqzXE4y9sjgMfNYWZzrWcxD23Ht2tx';
 export const OAUTH_REDIRECT_URI = 'https://jap-api-uat.herokuapp.com';
 export const OAUTH_SCOPE = 'cmuitaccount.basicinfo'; 
 const CRYPTO_KEY = 'A5178B6A965AACF3CD60B07A15061719';
-export const SERVER = 'https://jap-api-uat.herokuapp.com';
+export const SERVER = 'http://159.65.142.130';
 import * as crypto from 'crypto-js';
 
 export function getOAuthAuthenUrl() {
