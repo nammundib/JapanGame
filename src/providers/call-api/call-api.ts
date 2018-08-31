@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SERVER } from './../../app/app.config';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -14,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 export class CallApiProvider {
   urlStatic = SERVER + '/api/setVocabMistake/';
   urlScore = SERVER + '/api/updateScoreStudent/';
-  constructor(public http: Http) {
+  constructor(public http: Http,public HttpClient:HttpClient) {
     console.log('Hello CallApiProvider Provider');
   }
 
@@ -27,10 +28,8 @@ export class CallApiProvider {
         {'Content-Type': 'application/json' 
     });
     let options = new RequestOptions({ headers: headers });    
-    let postParams = {
-        params :{
-          content: staticVocab,
-      }
+    let postParams = {        
+          content: staticVocab      
     }
 
     return new Promise((resolve, reject) => {
@@ -56,9 +55,7 @@ export class CallApiProvider {
     });
     let options = new RequestOptions({ headers: headers });    
     let postParams = {
-        params :{
-          content: scoreForSave,
-      }
+          content: scoreForSave 
     }
 
     return new Promise((resolve, reject) => {
