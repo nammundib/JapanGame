@@ -12,7 +12,7 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {MenuPage} from '../menu/menu';
 import {JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
 import {InAppBrowser} from "@ionic-native/in-app-browser";
-import {getOAuthAuthenUrl, getOAuthAuthenUrlMobile, OAUTH_REDIRECT_URI} from "../../app/app.config";
+import {getOAuthAuthenUrl, getOAuthAuthenUrlMobile, OAUTH_REDIRECT_URI,SERVER} from "../../app/app.config";
 
 /**
  * Generated class for the LoginPage page.
@@ -62,7 +62,7 @@ export class LoginPage {
       if (this.GetParam('access_token')) {
         this.getUserWithAccessToken(this.GetParam('access_token'))
       } else {
-        this.login();
+        this.login();     
       }
     }
   }
@@ -161,6 +161,7 @@ export class LoginPage {
         window.open(authenUrl, '_self');
       }
     });
+     
   }
 
   doAfterLogin(responseData) {
@@ -173,11 +174,33 @@ export class LoginPage {
         FirstName: responseData.firstname_TH,
         lastName: responseData.lastname_TH
       }
+      
     }
 
     if (this.data2.data == null) {
       console.log("no user data returned", responseData);
     } else {
+    
+    // url = SERVER+ '/api/studentLogin';
+    // return new Promise((resolve, reject) => {
+    //     this.http.post(url, postParams, {studentID: this.data2.data.StudentCode, fullname :this.data2.data.FullName})
+    //       .toPromise()
+    //       .then((response) => {
+    //         console.log('API Response : ', response);
+    //         this.data3 = response.json();
+  
+    //         resolve(response.json());
+    //         console.log(this.data3);
+    //       })
+    //       .catch((error) => {
+    //         console.error('API Error : ', error.status);
+    //         console.error('API Error : ', JSON.stringify(error));
+    //         this.postCall();
+    //         reject(error.json());
+    //       });
+    //   });
+
+      
       //stage
       this.storage.get('stageTable').then((stageTable) => {
           if (stageTable != null) {//have data

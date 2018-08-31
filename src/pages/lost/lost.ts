@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
+import {SERVER} from "../../app/app.config";
 import { MapPage } from '../map/map';
 /**
  * Generated class for the LostPage page.
@@ -19,7 +20,7 @@ export class LostPage {
   
   staticForSave;
   typeForSave;
-  urlStatic = 'http://159.65.142.130/api/setVocabMistake/';
+  urlStatic = SERVER+ '/api/setVocabMistake/';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,) {
     this.staticForSave = navParams.get('static');

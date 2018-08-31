@@ -9,6 +9,8 @@ import { ToastController } from 'ionic-angular';
 import { LostPage } from '../lost/lost';
 import { Storage } from '@ionic/storage';
 
+import {SERVER} from "../../app/app.config";
+
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -47,7 +49,7 @@ export class PlaygamePage {
     totalscore = 0;//score in state
     life = 5;
     substate = 1;// substate in page for change question
-    url = 'http://159.65.142.130/api/getQuestion/';
+    url = SERVER+ '/api/getQuestion/';
     state = 1;// for change color
     statepage;//for send between page
     substatestore; //for substate in storage
@@ -283,6 +285,7 @@ export class PlaygamePage {
         let options = new RequestOptions({ headers: headers });
 
         return new Promise((resolve, reject) => {
+            console.log(this.url+this.statepage);
             this.http.get(this.url + this.statepage, options)
                 .map(res => res.json())
                 .subscribe(data => {

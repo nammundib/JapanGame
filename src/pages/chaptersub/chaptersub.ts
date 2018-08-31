@@ -5,6 +5,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http,Headers , RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { MenuPage } from '../menu/menu';
+
+import {SERVER} from "../../app/app.config";
+
 /**
  * Generated class for the ChaptersubPage page.
  *
@@ -22,7 +25,7 @@ export class ChaptersubPage {
   vocab;
   lesson;
   background;
-  url = "http://159.65.142.130/api/getLesson/";
+  url = SERVER+ "/api/getLesson/";
   state = '1';
   chater;
   readych = false;
