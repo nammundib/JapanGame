@@ -15,12 +15,33 @@ import 'rxjs/add/operator/toPromise';
 export class CallApiProvider {
   urlStatic = SERVER + '/api/setVocabMistake/';
   urlScore = SERVER + '/api/updateScoreStudent/';
+  urlLaststage = SERVER+ '/api/studentLogin';
   constructor(public http: Http,public HttpClient:HttpClient) {
     console.log('Hello CallApiProvider Provider');
   }
 
-  LastStage(callback){
-    
+  LastStage(callback,studentID,fullname){
+     let headers = new Headers(
+        {'Content-Type': 'application/json' 
+    });
+    let options = new RequestOptions({ headers: headers });    
+    let postParams = {        
+          studentID: studentID, 
+          fullname : fullname   
+    }
+     return new Promise((resolve, reject) => {
+        this.http.post(this.urlLaststage, postParams, options)
+          .toPromise()
+          .then((response) => {
+            console.log('API Response : ', response);
+            callback(response.json());
+          })
+          .catch((error) => {
+            console.error('API Error : ', error.status);
+            console.error('API Error : ', JSON.stringify(error));
+            callback(null);
+          });
+      });
   }
 
   getCallStaticSave(callback, staticVocab) {
@@ -74,4 +95,5 @@ export class CallApiProvider {
       });
     });
   }
+
 }

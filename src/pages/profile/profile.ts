@@ -250,6 +250,7 @@ export class ProfilePage {
   }
 
   loginCMU(){
+    this.logout();
     this.navCtrl.push('LoginPage');
   }
 
@@ -272,10 +273,10 @@ export class ProfilePage {
       console.log('staticTable has been removed');  
     });
     this.storage.remove('vocabTable').then(() => {
-      console.log('staticTable has been removed');  
+      console.log('vocabTable has been removed');  
     });
     this.storage.remove('id').then(() => {
-      console.log('name has been removed');    
+      console.log('id has been removed');    
       this.navCtrl.setRoot(HomePage);
     });
     // this.storage.clear().then(() => {
