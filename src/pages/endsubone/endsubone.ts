@@ -56,7 +56,7 @@ export class EndsubonePage {
     this.storage.get('id').then((id)=> {
           this.idCode = id;
         });
-    if(this.lastStage != undefined){
+    if(typeof this.lastStage != 'undefined'){
 
       if(this.lastStage <= this.state){
         console.log("GGGG");
@@ -84,7 +84,7 @@ export class EndsubonePage {
     this.storage.get('scoreTable').then((scoreTable)=> {
       this.scoreTable = scoreTable;    
       if(scoreTable != null){
-        if(this.score !== undefined){    
+        if(typeof this.score !== 'undefined'){    
           for(let i = 0; i < scoreTable.length;i++){
             if(scoreTable[i].id == this.idCode){
                 if(scoreTable[i].stage == this.state){
@@ -142,7 +142,7 @@ export class EndsubonePage {
 
     });
     //static save    
-    if(this.staticForSave !== undefined && this.staticForSave.length > 0){
+    if(typeof this.staticForSave !== 'undefined' && this.staticForSave.length > 0){
       let staticVocab = [{
         "type": this.typeForSave,
         "mistake":this.staticForSave
@@ -175,7 +175,7 @@ export class EndsubonePage {
 
   dismiss(){  
      if(this.substate == 4){
-      if(this.lastStage != undefined){
+      if(typeof this.lastStage != 'undefined'){
       this.navCtrl.setRoot('EndonePage',{
         // totalscore: this.totalscore,
         state : this.state,

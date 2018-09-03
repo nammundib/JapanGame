@@ -15,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 export class CallApiProvider {
   urlStatic = SERVER + '/api/setVocabMistake/';
   urlScore = SERVER + '/api/updateScoreStudent/';
-  urlLaststage = SERVER+ '/api/studentLogin';
+  urlLaststage = SERVER+ '/api/studentLogin/';
   constructor(public http: Http,public HttpClient:HttpClient) {
     console.log('Hello CallApiProvider Provider');
   }
