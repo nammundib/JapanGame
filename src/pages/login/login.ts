@@ -60,10 +60,12 @@ export class LoginPage {
         lastname_TH: this.storage.get('lastname')
       }
       this.doAfterLogin(afterLoginData)
-    }else{
-      if (this.GetParam('access_token')) {
-        this.getUserWithAccessToken(this.GetParam('access_token'))
+    }else{      
+       if (this.GetParam('access_token')) {
+         console.log(this.GetParam('access_token'))
+         this.getUserWithAccessToken(this.GetParam('access_token'))
       } else {
+        console.log("login")
         this.login();     
       }
     }
@@ -154,6 +156,7 @@ export class LoginPage {
             listener.unsubscribe();
             browser.close();
             let access_token = event.url.split('=')[1].split('&')[0];
+            console.log(access_token)
             this.getUserWithAccessToken(access_token)
           } else {
             console.log("Could not authenticate");
@@ -170,7 +173,8 @@ export class LoginPage {
     let cheackid = 0;
     this.data2 = {data: null}
     if (responseData) {
-      if(typeof responseData.student_id !== 'undefined'){
+      console.log(responseData.student_id)
+      if(responseData.student_id !== ''){
         this.data2.data = {
           StudentCode: responseData.student_id,
           FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
@@ -195,6 +199,7 @@ export class LoginPage {
       //stage
       this.storage.get('stageTable').then((stageTable) => {
         var callback = (result) => {
+          console.log(result)
           if(result != null){
             if (stageTable != null) {//have data
               for (let i = 0; i < stageTable.length; i++) {
@@ -324,10 +329,12 @@ export class LoginPage {
   }
 
   getUserWithAccessToken(access_token) {
+    console.log("getUserWithAccessToken")
     this.http.get(OAUTH_REDIRECT_URI + '/api/getUser?access_token=' + access_token)
       .subscribe(
         (response) => {
           console.log(response)
+          
           this.doAfterLogin(response)
         },
           error => console.log(error))

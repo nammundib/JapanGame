@@ -6,6 +6,7 @@ export const OAUTH_REDIRECT_URI = 'http://159.65.142.130';
 export const OAUTH_SCOPE = 'cmuitaccount.basicinfo'; 
 const CRYPTO_KEY = 'A5178B6A965AACF3CD60B07A15061719';
 export const SERVER = 'http://159.65.142.130';
+//export const SERVER = 'http://localhost:5100';
 import * as crypto from 'crypto-js';
 
 export function getOAuthAuthenUrl() {
