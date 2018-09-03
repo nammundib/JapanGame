@@ -277,7 +277,8 @@ export class ProfilePage {
     });
     this.storage.remove('id').then(() => {
       console.log('id has been removed');    
-      this.navCtrl.setRoot(HomePage);
+      //this.navCtrl.setRoot(HomePage);
+      document.location.href = "/";
     });
     // this.storage.clear().then(() => {
     //   console.log('Keys have been cleared');
