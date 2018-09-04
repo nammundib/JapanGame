@@ -266,7 +266,7 @@ export class LoginPage {
             if (stageTable != null) {//have data
               for (let i = 0; i < stageTable.length; i++) {
                 if (stageTable[i].id == this.data2.data.StudentCode) {
-                  stageTable[i].stage = result.last_stage;
+                  stageTable[i].stage = result[0].last_stage;
                   this.setName();
                   cheackid = 1;
                 }
@@ -275,7 +275,7 @@ export class LoginPage {
                 let data1 = stageTable;
                 data1.push({
                   id: this.data2.data.StudentCode,
-                  stage: result.last_stage
+                  stage: result[0].last_stage
                 });
                 this.storage.set('stageTable', data1);
                 this.setName();
@@ -283,7 +283,7 @@ export class LoginPage {
             } else {//new
                 this.qp.push({
                   id: this.data2.data.StudentCode,
-                  stage: result.last_stage
+                  stage: result[0].last_stage
                 });
                 this.setName();
                 this.storage.set('stageTable', this.qp);
