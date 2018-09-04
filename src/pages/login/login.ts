@@ -173,12 +173,7 @@ export class LoginPage {
     let cheackid = 0;
     this.data2 = {data: null}
     if (responseData) {
-<<<<<<< HEAD
-      console.log(responseData.student_id)
-      if(responseData.student_id !== ''){
-=======
       if(responseData.student_id != ''){
->>>>>>> e09ad09c252be08346313aa4f3b0d70c10b75982
         this.data2.data = {
           StudentCode: responseData.student_id,
           FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
@@ -198,72 +193,7 @@ export class LoginPage {
 
     if (this.data2.data == null) {
       console.log("no user data returned", responseData);
-<<<<<<< HEAD
-    } else {
-      
-      //stage
-      this.storage.get('stageTable').then((stageTable) => {
-        var callback = (result) => {
-          console.log(result)
-          if(result != null){
-            if (stageTable != null) {//have data
-              for (let i = 0; i < stageTable.length; i++) {
-                if (stageTable[i].id == this.data2.data.StudentCode) {
-                  stageTable[i].stage = result.last_stage;
-                  this.setName();
-                  cheackid = 1;
-                }
-              }
-              if (cheackid == 0) {//have data but its new
-                let data1 = stageTable;
-                data1.push({
-                  id: this.data2.data.StudentCode,
-                  stage: result.last_stage
-                });
-                this.storage.set('stageTable', data1);
-                this.setName();
-              }
-            } else {//new
-                this.qp.push({
-                  id: this.data2.data.StudentCode,
-                  stage: result.last_stage
-                });
-                this.setName();
-                this.storage.set('stageTable', this.qp);
-              }      
-          }else{
-            if (stageTable != null) {//have data
-              for (let i = 0; i < stageTable.length; i++) {
-                if (stageTable[i].id == this.data2.data.StudentCode) {
-                  this.setName();
-                  cheackid = 1;
-                }
-              }
-              if (cheackid == 0) {//have data but its new
-                let data1 = stageTable;
-                data1.push({
-                  id: this.data2.data.StudentCode,
-                  stage: "1-0"
-                });
-                this.storage.set('stageTable', data1);
-                this.setName();
-              }
-            } else {//new
-                this.qp.push({
-                  id: this.data2.data.StudentCode,
-                  stage: "1-0"
-                });
-                this.setName();
-                this.storage.set('stageTable', this.qp);
-              }
-            }            
-          }
-          this.CallApiProvider.LastStage(callback,this.data2.data.StudentCode,this.data2.data.FullName)
-        }
-      );
-=======
     } else {    
->>>>>>> e09ad09c252be08346313aa4f3b0d70c10b75982
 
       //score
       cheackid = 0;
@@ -335,11 +265,12 @@ export class LoginPage {
         //stage
       this.storage.get('stageTable').then((stageTable) => {
         var callback = (result) => {
-          if(result != null){
+        if(result != null){
+          
             if (stageTable != null) {//have data
               for (let i = 0; i < stageTable.length; i++) {
                 if (stageTable[i].id == this.data2.data.StudentCode) {
-                  stageTable[i].stage = result.last_stage;
+                  stageTable[i].stage = result[0].last_stage;
                   this.setName();
                   cheackid = 1;
                 }
@@ -348,7 +279,7 @@ export class LoginPage {
                 let data1 = stageTable;
                 data1.push({
                   id: this.data2.data.StudentCode,
-                  stage: result.last_stage
+                  stage: result[0].last_stage
                 });
                 this.storage.set('stageTable', data1);
                 this.setName();
@@ -356,7 +287,7 @@ export class LoginPage {
             } else {//new
                 this.qp.push({
                   id: this.data2.data.StudentCode,
-                  stage: result.last_stage
+                  stage: result[0].last_stage
                 });
                 this.setName();
                 this.storage.set('stageTable', this.qp);

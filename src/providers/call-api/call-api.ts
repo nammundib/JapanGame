@@ -78,12 +78,14 @@ export class CallApiProvider {
     let postParams = {
           content: scoreForSave 
     }
+    console.log(postParams);
 
     return new Promise((resolve, reject) => {
       this.http.post(this.urlScore,postParams,options)
       .toPromise()
       .then((response) =>
       {
+        console.log(response);
         callback(response.json());
 
       })
