@@ -239,7 +239,7 @@ export class PlaygamePage {
 
             //   console.log("this.timer.displayTime : "+ this.timer.secondsRemaining);
             if (!this.timer.runTimer) {
-                console.log("OUTTTTTTT");
+                //console.log("OUTTTTTTT");
                 return;
             }
             this.timer.secondsRemaining--;
