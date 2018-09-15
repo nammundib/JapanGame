@@ -158,6 +158,7 @@ export class LoginPage {
             let access_token = event.url.split('=')[1].split('&')[0];
             console.log(access_token)
             this.getUserWithAccessToken(access_token)
+
           } else {
             console.log("Could not authenticate");
           }
@@ -330,8 +331,7 @@ export class LoginPage {
     this.http.get(OAUTH_REDIRECT_URI + '/api/getUser?access_token=' + access_token)
       .subscribe(
         (response) => {
-          console.log(response)
-          
+          console.log(response)          
           this.doAfterLogin(response)
         },
           error => console.log(error))
