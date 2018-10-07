@@ -218,26 +218,41 @@ export class ProfilePage {
 
 
     this.storage.get('fullname').then((fullname)=> {
-      this.fullname = fullname;
-      this.storage.get('id').then((id)=> {
-        var callback = (result) => { 
-          if(result != null){
-            this.setLastStage(result[0].last_stage);
-            for(var i=0; i<8; i++){
-              for(var j=0; j<3; j++){
-                this.totalscore = this.totalscore + result[0]['Stage'+(i+1).toString()][j] ;
-                this.scoreTable.push({
-                  stage : i+1,
-                  substage : j+1,
-                  score : result[0]['Stage'+(i+1).toString()][j]
-                })
+      if(fullname != null){
+        this.fullname = fullname;
+        this.storage.get('id').then((id)=> {
+          var callback = (result) => { 
+            if(result != null){
+              this.setLastStage(result[0].last_stage);
+              for(var i=0; i<8; i++){
+                for(var j=0; j<3; j++){
+                  this.totalscore = this.totalscore + result[0]['Stage'+(i+1).toString()][j] ;
+                  this.scoreTable.push({
+                    stage : i+1,
+                    substage : j+1,
+                    score : result[0]['Stage'+(i+1).toString()][j]
+                  })
+                }
               }
+              this.readypro = true;
+            }     
+          }
+          this.CallApiProvider.LastStage(callback,id,this.fullname);
+        });
+      }else{
+        this.storage.get('scoreTable').then((scoreTable) => {
+          for(let i = 0; i < scoreTable.length;i++){
+            if(scoreTable[i].id == idCode){
+              this.scoreTable.push({
+                  stage : scoreTable[i].stage,
+                  substage : scoreTable[i].substage,
+                  score : scoreTable[i].score
+              })
             }
-            this.readypro = true;
-          }     
-        }
-        this.CallApiProvider.LastStage(callback,idCode,this.fullname);
-      });
+          }   
+          this.readypro = true;
+        });
+      }
     }); 
     
 
@@ -268,7 +283,9 @@ export class ProfilePage {
   }
 
   checkLastStage(stage,substage){
-    if(stage <= this.statenum){
+    if(stage < this.statenum){
+      return true
+    }else if(stage == this.statenum){
       if(substage <= this.substate){
         return true
       }else{
@@ -282,7 +299,6 @@ export class ProfilePage {
   }
 
   loginCMU(){
-    this.logout();
     this.navCtrl.push('LoginPage');
   }
 
@@ -309,7 +325,7 @@ export class ProfilePage {
     });
     this.storage.remove('id').then(() => {
       console.log('id has been removed');    
-      //this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(HomePage);
       document.location.href = "/";
     });
     // this.storage.clear().then(() => {
