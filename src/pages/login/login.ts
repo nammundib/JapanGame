@@ -1,3 +1,4 @@
+import { CallApiProvider } from './../../providers/call-api/call-api';
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Http, Headers, RequestOptions} from '@angular/http';
@@ -43,7 +44,8 @@ export class LoginPage {
               public http: HttpClient,
               public navCtrl: NavController,
               public loadingCtrl: LoadingController,
-              private iab: InAppBrowser
+              private iab: InAppBrowser,
+              public CallApiProvider:CallApiProvider
   ) {
 
     this.todo = this.formBuilder.group({
@@ -58,10 +60,12 @@ export class LoginPage {
         lastname_TH: this.storage.get('lastname')
       }
       this.doAfterLogin(afterLoginData)
-    }else{
-      if (this.GetParam('access_token')) {
-        this.getUserWithAccessToken(this.GetParam('access_token'))
+    }else{      
+       if (this.GetParam('access_token')) {
+         console.log(this.GetParam('access_token'))
+         this.getUserWithAccessToken(this.GetParam('access_token'))
       } else {
+        console.log("login")
         this.login();     
       }
     }
@@ -79,7 +83,7 @@ export class LoginPage {
     this.storage.get('type').then((typeresult) => {
       this.typeS = typeresult;
       if (typeresult == 'student') {
-        console.log('Your name is', typeresult);
+        console.log('check type when login cmu', typeresult);
         this.navCtrl.setRoot('MenuPage');
       }
     });
@@ -152,7 +156,9 @@ export class LoginPage {
             listener.unsubscribe();
             browser.close();
             let access_token = event.url.split('=')[1].split('&')[0];
+            console.log(access_token)
             this.getUserWithAccessToken(access_token)
+
           } else {
             console.log("Could not authenticate");
           }
@@ -168,101 +174,32 @@ export class LoginPage {
     let cheackid = 0;
     this.data2 = {data: null}
     if (responseData) {
-      this.data2.data = {
-        StudentCode: responseData.student_id,
-        FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
-        FirstName: responseData.firstname_TH,
-        lastName: responseData.lastname_TH
+      if(responseData.student_id != ''){
+        this.data2.data = {
+          StudentCode: responseData.student_id,
+          FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
+          FirstName: responseData.firstname_TH,
+          lastName: responseData.lastname_TH
+        }
+      }else{        
+        this.data2.data = {
+          StudentCode: responseData.cmuitaccount,
+          FullName: responseData.firstname_TH + ' ' + responseData.lastname_TH,
+          FirstName: responseData.firstname_TH,
+          lastName: responseData.lastname_TH
+        }
       }
       
     }
 
     if (this.data2.data == null) {
       console.log("no user data returned", responseData);
-    } else {
-    
-    // url = SERVER+ '/api/studentLogin';
-    // return new Promise((resolve, reject) => {
-    //     this.http.post(url, postParams, {studentID: this.data2.data.StudentCode, fullname :this.data2.data.FullName})
-    //       .toPromise()
-    //       .then((response) => {
-    //         console.log('API Response : ', response);
-    //         this.data3 = response.json();
-  
-    //         resolve(response.json());
-    //         console.log(this.data3);
-    //       })
-    //       .catch((error) => {
-    //         console.error('API Error : ', error.status);
-    //         console.error('API Error : ', JSON.stringify(error));
-    //         this.postCall();
-    //         reject(error.json());
-    //       });
-    //   });
-
-      
-      //stage
-      this.storage.get('stageTable').then((stageTable) => {
-        if (this.typeS == "quest") {
-          let dataS = stageTable;
-          for (let i = 0; i < stageTable.length; i++) {
-            if (stageTable[i].id == this.id) {
-              dataS.push({
-                id: this.data2.data.StudentCode,
-                stage: stageTable[i].stage
-              });
-            }
-          }
-          this.storage.set('stageTable', dataS);
-          this.setName();
-        } else {
-          if (stageTable != null) {//have data
-            console.log('Your name is', stageTable);
-            for (let i = 0; i < stageTable.length; i++) {
-              if (stageTable[i].id == this.data2.data.StudentCode) {
-                this.setName();
-                cheackid = 1;
-              }
-            }
-            if (cheackid == 0) {//have data but its new
-              let data1 = stageTable;
-              data1.push({
-                id: this.data2.data.StudentCode,
-                stage: "1-0"
-              });
-              this.storage.set('stageTable', data1);
-              this.setName();
-            }
-          } else {//new
-            this.qp.push({
-              id: this.data2.data.StudentCode,
-              stage: "1-0"
-            });
-            this.setName();
-            this.storage.set('stageTable', this.qp);
-          }
-        }
-      });
+    } else {    
 
       //score
       cheackid = 0;
-      this.storage.get('scoreTable').then((scoreTable) => {
-        if (this.typeS == "quest") {
-          let dataQ = scoreTable;
-          for (let i = 0; i < scoreTable.length; i++) {
-            if (scoreTable[i].id == this.id) {
-              dataQ.push({
-                id: this.data2.data.StudentCode,
-                stage: scoreTable[i].stage,
-                substage: scoreTable[i].substage,
-                score: scoreTable[i].score
-              });
-            }
-          }
-          this.storage.set('scoreTable', dataQ);
-        } else {
+      this.storage.get('scoreTable').then((scoreTable) => {        
           if (scoreTable != null) {//have data
-            console.log('Your name is', scoreTable);
             for (let i = 0; i < scoreTable.length; i++) {
               if (scoreTable[i].id == this.data2.data.StudentCode) {
                 cheackid = 1;
@@ -291,64 +228,110 @@ export class LoginPage {
             this.storage.set('scoreTable', scorenew);
           }
         }
-      });
+      );
 
 
       //item
       cheackid = 0;
-      this.storage.get('itemTable').then((itemTable) => {
-        if (this.typeS == "quest") {
-          let dataI = itemTable;
-          for (let i = 0; i < itemTable.length; i++) {
-            if (itemTable[i].id == this.id) {
-              dataI.push({
-                id: this.data2.data.StudentCode,
-                itemC: itemTable[i].itemC,
-                itemS: itemTable[i].itemS,
-                itemA: itemTable[i].itemA
-              });
-            }
-          }
-          this.storage.set('itemTable', dataI);
-        } else {
+      this.storage.get('itemTable').then((itemTable) => {        
           if (itemTable != null) {//have data
-            console.log('Your name is', itemTable);
-            for (let i = 0; i < itemTable.length; i++) {
-              if (itemTable[i].id == this.data2.data.StudentCode) {
-                cheackid = 1;
+              for (let i = 0; i < itemTable.length; i++) {
+                if (itemTable[i].id == this.data2.data.StudentCode) {
+                  cheackid = 1;
+                }
               }
-            }
-            if (cheackid == 0) {//have data but its new
-              let data1 = itemTable;
-              data1.push({
+              if (cheackid == 0) {//have data but its new
+                let data1 = itemTable;
+                data1.push({
+                  id: this.data2.data.StudentCode,
+                  itemC: 2,
+                  itemS: 2,
+                  itemA: 2
+                });
+                this.storage.set('itemTable', data1);
+              }
+            } else {//new
+              let itemnew = []
+              itemnew.push({
                 id: this.data2.data.StudentCode,
                 itemC: 2,
                 itemS: 2,
                 itemA: 2
               });
-              this.storage.set('itemTable', data1);
+              this.storage.set('itemTable', itemnew);
             }
-          } else {//new
-            let itemnew = []
-            itemnew.push({
-              id: this.data2.data.StudentCode,
-              itemC: 2,
-              itemS: 2,
-              itemA: 2
-            });
-            this.storage.set('itemTable', itemnew);
           }
+      );
+        
+        //stage
+      this.storage.get('stageTable').then((stageTable) => {
+        var callback = (result) => {
+        if(result != null){
+          
+            if (stageTable != null) {//have data
+              for (let i = 0; i < stageTable.length; i++) {
+                if (stageTable[i].id == this.data2.data.StudentCode) {
+                  stageTable[i].stage = result[0].last_stage;
+                  this.setName();
+                  cheackid = 1;
+                }
+              }
+              if (cheackid == 0) {//have data but its new
+                let data1 = stageTable;
+                data1.push({
+                  id: this.data2.data.StudentCode,
+                  stage: result[0].last_stage
+                });
+                this.storage.set('stageTable', data1);
+                this.setName();
+              }
+            } else {//new
+                this.qp.push({
+                  id: this.data2.data.StudentCode,
+                  stage: result[0].last_stage
+                });
+                this.setName();
+                this.storage.set('stageTable', this.qp);
+              }      
+          }else{
+            if (stageTable != null) {//have data
+              for (let i = 0; i < stageTable.length; i++) {
+                if (stageTable[i].id == this.data2.data.StudentCode) {
+                  this.setName();
+                  cheackid = 1;
+                }
+              }
+              if (cheackid == 0) {//have data but its new
+                let data1 = stageTable;
+                data1.push({
+                  id: this.data2.data.StudentCode,
+                  stage: "1-0"
+                });
+                this.storage.set('stageTable', data1);
+                this.setName();
+              }
+            } else {//new
+                this.qp.push({
+                  id: this.data2.data.StudentCode,
+                  stage: "1-0"
+                });
+                this.setName();
+                this.storage.set('stageTable', this.qp);
+              }
+            }            
+          }
+          this.CallApiProvider.LastStage(callback,this.data2.data.StudentCode,this.data2.data.FullName)
         }
-      });
-      this.navCtrl.push('MenuPage');
+      );
     }
   }
 
   getUserWithAccessToken(access_token) {
+    console.log("getUserWithAccessToken")
     this.http.get(OAUTH_REDIRECT_URI + '/api/getUser?access_token=' + access_token)
       .subscribe(
         (response) => {
-          console.log(response)
+          console.log(response)          
           this.doAfterLogin(response)
         },
           error => console.log(error))
@@ -360,13 +343,12 @@ export class LoginPage {
     this.storage.set('firstname', this.data2.data.FirstName);
     this.storage.set('lastname', this.data2.data.lastName);
     this.storage.set('type', "student");
-    console.log(name);
+    this.navCtrl.push('MenuPage');
   };
 
   setData() {
     this.storage.set('state', "1-0");
     this.storage.set('stageTable', this.qp);
-    console.log(name);
   }
 
   getName() {
@@ -385,10 +367,6 @@ export class LoginPage {
     this.storage.clear().then(() => {
       console.log('Keys have been cleared');
     });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
 }

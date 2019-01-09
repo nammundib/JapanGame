@@ -28,6 +28,7 @@ import { LoginPageModule } from "../pages/login/login.module";
 import { HttpClientModule} from "@angular/common/http";
 import {InAppBrowser } from "@ionic-native/in-app-browser";
 import {HttpModule} from "@angular/http";
+import { CallApiProvider } from '../providers/call-api/call-api';
 
 let storage = new Storage({});
 
@@ -55,7 +56,8 @@ let storage = new Storage({});
     StatusBar,
     SplashScreen,
     InAppBrowser,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CallApiProvider
   ]
 })
 export class AppModule {}

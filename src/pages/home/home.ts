@@ -12,19 +12,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   templateUrl: 'home.html'
 })
 export class HomePage {
-  cheackS = false;
-  cheackQ = false;
+  cheackID = false;
+  TypeData;
 
   constructor(
     public storage: Storage,
     public navCtrl: NavController,
     private  http: HttpClient) {
-    this.storage.get('id').then((id) => {
-      if (id != null) {
-        this.cheackS = true;
-        this.cheackQ = true;
-      }
-    });
+    
 
     // this.storage.get('name').then((name) => {
     //   if(name != null){   
@@ -32,42 +27,43 @@ export class HomePage {
     //   }
     // });
   }
+  ionViewWillEnter() {
+    this.storage.get('id').then((id) => {
+      if (id != null) {
+        this.cheackID = true;
+      }
+    });
+    this.storage.get('type').then((type) => {
+      if(type != null){   
+        this.TypeData = type; 
+      }
+    });
+  }
 
 
   openMenu() {
-    if (!this.cheackS) {
+    if (!this.cheackID) {
       this.storage.get('id').then((id) => {
         if (id == null) {
-          console.log('Your name is', id);
           this.navCtrl.push('LoginGuestPage');
         } else {
-          console.log('Your name is', id);
           this.navCtrl.push('MenuPage');
         }
       });
     } else {
       this.navCtrl.push('MenuPage');
     }
-
-    // this.navCtrl.setRoot(LoginGuestPage);
-
   }
 
-//
   openlogin() {
-    if (!this.cheackQ) {
-      this.storage.get('id').then((id) => {
-        console.log('Your name is', id);
-        if (id == null) {
-          console.log('Your name is', id);
-          this.navCtrl.push('LoginPage');
-        } else {
-          console.log('Your name is', id);
-          this.navCtrl.push('MenuPage');
-        }
-      });
+    if (!this.cheackID) {
+      this.navCtrl.push('LoginPage');
     } else {
-      this.navCtrl.setRoot('MenuPage');
+      if(this.TypeData == 'quest'){
+        this.navCtrl.push('LoginPage');        
+      }else{
+        this.navCtrl.setRoot('MenuPage');
+      }
     }
   }
 

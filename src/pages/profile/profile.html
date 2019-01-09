@@ -46,7 +46,8 @@
 
     <ion-grid class="tablescore">
       <!-- <ion-row *ngFor="let score of score"> -->
-      <ion-row *ngFor = "let score of scoreTable">
+      <div *ngFor = "let score of scoreTable">
+        <ion-row *ngIf="checkLastStage(score.stage,score.substage)">
         <ion-col col-4>
           {{score.stage}}-{{score.substage}}
         </ion-col>
@@ -57,6 +58,7 @@
           <ion-icon class="iconplay" ios="ios-arrow-dropright" md="md-arrow-dropright" (click) = "openMap(score.stage,score.substage)"></ion-icon>
         </ion-col>
       </ion-row>
+      </div>
     </ion-grid>
   </div>
   <ng-template #ready>
