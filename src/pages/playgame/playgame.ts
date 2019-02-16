@@ -9,6 +9,8 @@ import { ToastController } from 'ionic-angular';
 import { LostPage } from '../lost/lost';
 import { Storage } from '@ionic/storage';
 
+import {SERVER} from "../../app/app.config";
+
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -47,7 +49,7 @@ export class PlaygamePage {
     totalscore = 0;//score in state
     life = 5;
     substate = 1;// substate in page for change question
-    url = 'http://159.65.142.130/api/getQuestion/';
+    url = SERVER+ '/api/getQuestion/';
     state = 1;// for change color
     statepage;//for send between page
     substatestore; //for substate in storage
@@ -209,13 +211,11 @@ export class PlaygamePage {
                         }
                     }
                 }
-                console.log("staticquestion = " + this.staticquestion)
             }
         });
         this.storage.get('vocabTable').then((vocabTable) => {
             if (vocabTable != null) {
                 this.vocabstatic = vocabTable;
-                console.log(this.vocabstatic);
             }
         });
 
@@ -223,7 +223,6 @@ export class PlaygamePage {
 
     initTimer() {
         this.timeInSeconds = this.timestate[this.timeindex];
-        console.log(this.timeInSeconds);
 
         this.timer = <CountdownTimer>{
             seconds: this.timeInSeconds,
@@ -240,7 +239,7 @@ export class PlaygamePage {
 
             //   console.log("this.timer.displayTime : "+ this.timer.secondsRemaining);
             if (!this.timer.runTimer) {
-                console.log("OUTTTTTTT");
+                //console.log("OUTTTTTTT");
                 return;
             }
             this.timer.secondsRemaining--;
@@ -258,10 +257,6 @@ export class PlaygamePage {
 
             }
         }, 1000);
-    }
-
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad PlaygamePage');
     }
 
     getQuestion() {
@@ -286,10 +281,8 @@ export class PlaygamePage {
             this.http.get(this.url + this.statepage, options)
                 .map(res => res.json())
                 .subscribe(data => {
-                    console.log(data)
                     this.question = data;
                     this.saveVocab();
-                    console.log(this.question.question[this.indexques].stem.romanji);
                     this.changeColor();
                     this.setQuestion();
                     this.initTimer();
@@ -298,7 +291,9 @@ export class PlaygamePage {
                 }, error => {
                     console.log('API Error : ', error.status);
                     console.log('API Error : ', JSON.stringify(error));
-                    this.getCall();
+                    // setTimeout(() => {
+                    //     this.getCall();                        
+                    // }, 2000);
                     reject(error.json());
                 });
         });
@@ -400,9 +395,6 @@ export class PlaygamePage {
                 // if(this.indexstatic < this.staticquestion.length){
                 this.checkQueStatic = true;
                 let ranstaic = Math.floor(Math.random() * this.staticquestion.length);
-
-                console.log("this.staticquestion.length: " + this.staticquestion.length);
-                console.log("ranstaic: " + ranstaic);
 
                 this.indexstatic = ranstaic;
 
@@ -544,7 +536,6 @@ export class PlaygamePage {
                 }
 
                 this.staticquestion[ranstaic].count--;
-                console.log("this.staticquestion[ranstaic].count--: " + this.staticquestion[ranstaic].count);
 
                 this.storage.set('staticTable', this.staticquestion);
                 // }
@@ -851,7 +842,6 @@ export class PlaygamePage {
             cssClass: "toasttime"
         });
         toast.onDidDismiss(() => {
-            console.log('Dismissed toast');
             if (this.life == 0) {
                 setTimeout(() => {
                     this.timer.runTimer = false;
@@ -996,14 +986,10 @@ export class PlaygamePage {
         // if(staticTable != null){//have data
         // this.static = staticTable; 
         this.staticForSave.push({vocabID: question.stem.vocabID});
-        console.log("GGGGGGG");
-        console.log("question.stem.vocabID = " + question.stem.vocabID);
         let checkstatic = false;
         for (let i = 0; i < this.staticquestion.length; i++) {
             if (question.stem.vocabID == this.staticquestion[i].stem.vocabID) {
-                console.log("this.staticquestion[i].count" + this.staticquestion[i].count);
                 this.staticquestion[i].count = this.staticquestion[i].count + 1;
-                console.log("this.staticquestion[i].count = this.staticquestion[i].count++;" + this.staticquestion[i].count);
                 checkstatic = true;
             }
         }
@@ -1049,44 +1035,6 @@ export class PlaygamePage {
             this.storage.set('staticTable', this.staticquestion);
         }
 
-        //   }
-        // else{//new
-        // let datas = [];
-        // datas.push({
-        //     choices: [{
-        //             vocabID: question[this.indexques].choices[0].vocabID,
-        //             hiragana: question[this.indexques].choices[0].hiragana,
-        //             romanji: question[this.indexques].choices[0].romanji,
-        //             thai: question[this.indexques].choices[0].thai
-        //         },{
-        //             vocabID: question[this.indexques].choices[1].vocabID,
-        //             hiragana: question[this.indexques].choices[1].hiragana,
-        //             romanji: question[this.indexques].choices[1].romanji,
-        //             thai: question[this.indexques].choices[1].thai
-        //         },{
-        //             vocabID:  question[this.indexques].choices[2].vocabID,
-        //             hiragana: question[this.indexques].choices[2].hiragana,
-        //             romanji: question[this.indexques].choices[2].romanji,
-        //             thai: question[this.indexques].choices[2].thai
-        //         },{
-        //             vocabID: question[this.indexques].choices[3].vocabID,
-        //             hiragana: question[this.indexques].choices[3].hiragana,
-        //             romanji: question[this.indexques].choices[3].romanji,
-        //             thai: question[this.indexques].choices[3].thai
-        //         }],
-        //         stem: {
-        //             vocabID: question[this.indexques].stem.vocabID,
-        //             hiragana: question[this.indexques].stem.hiragana,
-        //             romanji: question[this.indexques].stem.romanji,
-        //             thai: question[this.indexques].stem.thai
-        //         },
-        //         UserID:this.idCode,
-        //     count: 1             
-        // });
-        // this.storage.set('staticTable', datas);
-        // }
-        // });
-        console.log(this.static);
     }
 
     addtime() {
@@ -1184,8 +1132,6 @@ export class PlaygamePage {
                 while (this.cutran2 == this.key) {
                     this.cutran2 = Math.floor(Math.random() * 4);
                 }
-                console.log(this.cutran1);
-                console.log(this.cutran2);
             }
             this.choicecolor[this.cutran1] = "choicecut";
             this.choicepic[this.cutran1] = "assets/imgs/question/grayC.png";

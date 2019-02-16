@@ -1,3 +1,4 @@
+import { CallApiProvider } from './../../providers/call-api/call-api';
 import { LoginPage } from './../login/login';
 import { HomePage } from './../home/home';
 import { PlaygamePage } from './../playgame/playgame';
@@ -34,7 +35,8 @@ export class ProfilePage {
   login = false;
   constructor(public navCtrl: NavController, 
     public storage: Storage,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    public CallApiProvider:CallApiProvider) {
       
   }
 
@@ -206,10 +208,6 @@ export class ProfilePage {
       this.id = id;
     });
 
-    this.storage.get('fullname').then((fullname)=> {
-      this.fullname = fullname;
-    }); 
-    
     this.storage.get('firstname').then((firstname)=> {
       this.firstname = firstname;
     });
@@ -218,31 +216,82 @@ export class ProfilePage {
       this.lastname = lastname;
     });
 
-    this.storage.get('scoreTable').then((scoreTable)=> {      
-       for(let i = 0; i < scoreTable.length;i++){
-        if(scoreTable[i].id == idCode){
-          
-            if(scoreTable[i].score != 0){
-              this.scoreTable.push({
-                stage : scoreTable[i].stage,
-                substage : scoreTable[i].substage,
-                score : scoreTable[i].score            
-              });
 
-            this.totalscore = this.totalscore + scoreTable[i].score ;
+    this.storage.get('fullname').then((fullname)=> {
+      if(fullname != null){
+        this.fullname = fullname;
+        this.storage.get('id').then((id)=> {
+          var callback = (result) => { 
+            if(result != null){
+              this.setLastStage(result[0].last_stage);
+              for(var i=0; i<8; i++){
+                for(var j=0; j<3; j++){
+                  this.totalscore = this.totalscore + result[0]['Stage'+(i+1).toString()][j] ;
+                  this.scoreTable.push({
+                    stage : i+1,
+                    substage : j+1,
+                    score : result[0]['Stage'+(i+1).toString()][j]
+                  })
+                }
+              }
+              this.readypro = true;
+            }     
           }
-          
-          
-        }
+          this.CallApiProvider.LastStage(callback,id,this.fullname);
+        });
+      }else{
+        this.storage.get('scoreTable').then((scoreTable) => {
+          for(let i = 0; i < scoreTable.length;i++){
+            if(scoreTable[i].id == idCode){
+              this.scoreTable.push({
+                  stage : scoreTable[i].stage,
+                  substage : scoreTable[i].substage,
+                  score : scoreTable[i].score
+              })
+            }
+          }   
+          this.readypro = true;
+        });
       }
+    }); 
+    
 
-    });
+    // this.storage.get('scoreTable').then((scoreTable)=> {      
+    //    for(let i = 0; i < scoreTable.length;i++){
+    //     if(scoreTable[i].id == idCode){
+          
+    //         if(scoreTable[i].score != 0){
+    //           this.scoreTable.push({
+    //             stage : scoreTable[i].stage,
+    //             substage : scoreTable[i].substage,
+    //             score : scoreTable[i].score            
+    //           });
 
-    this.readypro = true;
+    //         this.totalscore = this.totalscore + scoreTable[i].score ;
+    //       }
+          
+          
+    //     }
+    //   }
+
+    // });
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
+  }
+
+  checkLastStage(stage,substage){
+    if(stage < this.statenum){
+      return true
+    }else if(stage == this.statenum){
+      if(substage <= this.substate){
+        return true
+      }else{
+        return false
+      }
+    }
   }
 
   openMenu(){
@@ -272,15 +321,19 @@ export class ProfilePage {
       console.log('staticTable has been removed');  
     });
     this.storage.remove('vocabTable').then(() => {
-      console.log('staticTable has been removed');  
+      console.log('vocabTable has been removed');  
     });
     this.storage.remove('id').then(() => {
-      console.log('name has been removed');    
+      console.log('id has been removed');    
       this.navCtrl.setRoot(HomePage);
+      document.location.href = "/";
     });
     // this.storage.clear().then(() => {
     //   console.log('Keys have been cleared');
     // });
+    this.storage.remove('fullname')
+    this.storage.remove('firstname')
+    this.storage.remove('lastname')
     
   }
 }

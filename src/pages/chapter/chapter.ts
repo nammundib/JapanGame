@@ -2,10 +2,12 @@ import { ChaptersubPage } from './../chaptersub/chaptersub';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Http,Headers , RequestOptions } from '@angular/http';
+// import { HttpClient } from "@angular/common/http";
+import { Http } from "@angular/http";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {SERVER} from "../../app/app.config";
 
 import {MenuPage} from '../menu/menu';
 import { LessonPage } from '../lesson/lesson';
@@ -24,7 +26,7 @@ import { LessonPage } from '../lesson/lesson';
 export class ChapterPage {
 
   lesson;
-  url = "http://159.65.142.130/api/getLesson/"
+  url = SERVER+ "/api/getLesson/"
   state = '1';
   chapterone = [
     {   "color" :"pink",

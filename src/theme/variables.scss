@@ -41,6 +41,13 @@ $colors: (
   dark:       #222
 );
 
+.grid {
+  padding: 0px; 
+}
+.grid .col {
+  padding: 0px; 
+}
+
 
 // App iOS Variables
 // --------------------------------------------------
@@ -86,3 +93,4 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+

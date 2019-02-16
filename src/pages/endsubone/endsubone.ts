@@ -1,3 +1,4 @@
+import { CallApiProvider } from './../../providers/call-api/call-api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PlaygamePage } from './../playgame/playgame';
@@ -5,7 +6,7 @@ import { EndonePage } from './../endone/endone';
 import { MenuPage } from '../menu/menu';
 import { MapPage } from '../map/map';
 import { Storage } from '@ionic/storage';
-import { Http, Headers, RequestOptions } from '@angular/http';
+
 /**
  * Generated class for the EndsubonePage page.
  *
@@ -33,11 +34,9 @@ export class EndsubonePage {
   scoreTable;
   staticForSave;
   typeForSave;
-  urlStatic = 'http://159.65.142.130/api/setVocabMistake/';
-  urlScore = 'http://159.65.142.130/api/updateScoreStudent/'
 
-  constructor(public navCtrl: NavController, public storage: Storage,public navParams: NavParams,
-        public http: Http,) {
+  constructor(public navCtrl: NavController, public storage: Storage,public navParams: NavParams,public CallApiProvider:CallApiProvider,
+        ) {
     this.data = navParams.get('data');
     this.state = navParams.get('state');
     this.substate = navParams.get('substate');
@@ -57,7 +56,7 @@ export class EndsubonePage {
     this.storage.get('id').then((id)=> {
           this.idCode = id;
         });
-    if(this.lastStage != undefined){
+    if(typeof this.lastStage != 'undefined'){
 
       if(this.lastStage <= this.state){
         console.log("GGGG");
@@ -85,7 +84,7 @@ export class EndsubonePage {
     this.storage.get('scoreTable').then((scoreTable)=> {
       this.scoreTable = scoreTable;    
       if(scoreTable != null){
-        if(this.score !== undefined){    
+        if(typeof this.score !== 'undefined'){    
           for(let i = 0; i < scoreTable.length;i++){
             if(scoreTable[i].id == this.idCode){
                 if(scoreTable[i].stage == this.state){
@@ -100,9 +99,11 @@ export class EndsubonePage {
                             studentID: this.idCode,
                             stage: this.state+"-"+(this.substate-1),
                             score: this.score
-                          }]
-                          this.getCallScoreSave(scoreForSave);
-                        console.log("saveScoreInDatabase: ",scoreForSave);                    
+                          }] 
+                          var callback = (result) =>{        
+                            console.log("saveScoreInDatabase: ",scoreForSave); 
+                          }
+                          this.CallApiProvider.getCallScoreSave(callback,scoreForSave);               
                       }
                     }else{
                       checkscore = 2;
@@ -120,8 +121,10 @@ export class EndsubonePage {
               stage: this.state+"-"+(this.substate-1),
               score: this.score
             }]
-            this.getCallScoreSave(scoreForSave);
-            console.log("saveScoreInDatabase: ",scoreForSave);
+            var callback = (result) =>{        
+                console.log("saveScoreInDatabase: ",scoreForSave); 
+            }
+            this.CallApiProvider.getCallScoreSave(callback,scoreForSave); 
           }
 
           this.scoreTable.push({
@@ -139,13 +142,15 @@ export class EndsubonePage {
 
     });
     //static save    
-    if(this.staticForSave !== undefined && this.staticForSave.length > 0){
+    if(typeof this.staticForSave !== 'undefined' && this.staticForSave.length > 0){
       let staticVocab = [{
         "type": this.typeForSave,
         "mistake":this.staticForSave
       }]
-      this.getCallStaticSave(staticVocab);
-      console.log("saveStaticInDatabase: ",staticVocab);
+      var callback = (result) =>{        
+        console.log("saveStaticInDatabase: ",staticVocab);
+      }
+      this.CallApiProvider.getCallStaticSave(callback,staticVocab);
     }
 
     if(this.substate < 4){
@@ -168,69 +173,9 @@ export class EndsubonePage {
     console.log('ionViewDidLoad EndsubonePage');
   }
 
-  getCallStaticSave(staticVocab) {
-        let headers = new Headers(
-        {'Content-Type': 'application/json' 
-    });
-    let options = new RequestOptions({ headers: headers });    
-    let postParams = {
-        params :{
-          content: staticVocab,
-      }
-    }
-
-    return new Promise((resolve, reject) => {
-      this.http.post(this.urlStatic,postParams,options)
-      .toPromise()
-      .then((response) =>
-      {
-        console.log('API Response : ', response.json());
-        resolve(response.json());
-
-      })
-      .catch((error) =>
-      {
-        console.error('API Error : ', error.status);
-        console.error('API Error : ', JSON.stringify(error));
-        this.getCallStaticSave(staticVocab);
-        reject(error.json());
-      });
-    });
-  }
-
-  getCallScoreSave(scoreForSave) {
-        let headers = new Headers(
-        {'Content-Type': 'application/json' 
-    });
-    let options = new RequestOptions({ headers: headers });    
-    let postParams = {
-        params :{
-          content: scoreForSave,
-      }
-    }
-
-    return new Promise((resolve, reject) => {
-      this.http.post(this.urlScore,postParams,options)
-      .toPromise()
-      .then((response) =>
-      {
-        console.log('API Response : ', response.json());
-        resolve(response.json());
-
-      })
-      .catch((error) =>
-      {
-        console.error('API Error : ', error.status);
-        console.error('API Error : ', JSON.stringify(error));
-        this.getCallStaticSave(scoreForSave);
-        reject(error.json());
-      });
-    });
-  }
-
   dismiss(){  
      if(this.substate == 4){
-      if(this.lastStage != undefined){
+      if(typeof this.lastStage != 'undefined'){
       this.navCtrl.setRoot('EndonePage',{
         // totalscore: this.totalscore,
         state : this.state,
